@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: "Spectral", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #2b2723;
+  --color-muted: #6f6357;
+  --color-accent: #a8702e;
+  --color-accent-dark: #8a5c24;
+  --color-cream: #f3f0ea;
+  --color-tan: #e3ddd1;
+  --color-dark: #1f1a16;
+  --color-dark-card: #2b2723;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: #ffffff;
+  }
+
+  .dark body {
+    color: #ece7e0;
+    background: var(--color-dark);
+  }
+
+  h1,
+  h2,
+  h3,
+  blockquote {
+    font-family: var(--font-serif);
+  }
+}
