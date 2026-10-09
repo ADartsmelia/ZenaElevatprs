@@ -2,11 +2,13 @@ import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
 import Button from "../components/ui/Button"
 import Media from "../components/ui/Media"
-import SjecBadge from "../components/ui/SjecBadge"
+import { BoltIcon, CheckIcon, ModernizeIcon, TagIcon, WrenchIcon } from "../components/ui/Icons"
+
 import { useLang, type L } from "../i18n"
 import { useCommon } from "../i18n/useCommon"
 import { usePageMeta } from "../lib/seo"
-import { site } from "../config/site"
+
+const offerIcons = [TagIcon, WrenchIcon, BoltIcon, ModernizeIcon]
 
 const copy = {
   en: {
@@ -14,30 +16,41 @@ const copy = {
     metaDesc:
       "ZENA Elevators is a Georgian vertical transportation company combining international SJEC technology with professional local project coordination, installation and technical support.",
     eyebrow: "ABOUT ZENA",
-    title: "A New Standard for Vertical Transportation in Georgia",
-    text: "ZENA Elevators is a Georgian vertical transportation company providing elevator and escalator solutions for residential, commercial and public buildings. We combine international technology with professional local project coordination, installation and technical support.",
+    title: "A New Standard in Elevators and Escalators",
+    text: "ZENA Elevators is a Georgian vertical transportation company offering the right elevator and escalator solutions for residential, commercial and public buildings.",
     storyEyebrow: "OUR STORY",
-    storyTitle: "A more accountable approach to elevator projects.",
+    storyTitle: "A new approach in vertical transportation",
     story: [
-      "ZENA was established to provide the Georgian market with a more accountable and technically focused approach to elevator projects. Our goal is to combine reliable international equipment with clear project coordination, transparent communication and responsive local support.",
-      "Through cooperation with SJEC, we provide access to a broad portfolio of elevator, escalator and moving-walk solutions designed for different building types and traffic requirements.",
+      "ZENA was founded to establish new standards in vertical transportation in Georgia. We combine international technology with local engineering experience to ensure effective project management, transparent communication and reliable technical service.",
+      "As an official SJEC partner, we offer customers a wide choice of elevators, escalators and moving walks, tailored to the needs of different types of buildings and projects.",
     ],
     storyMedia: "ZENA engineers · commissioning walkthrough",
-    commitEyebrow: "HOW WE WORK",
-    commitTitle: "Three commitments behind every project.",
-    commitments: [
-      { title: "Transparent Project Management", text: "Clear specifications, commercial terms and project responsibilities from the beginning." },
-      { title: "Professional Local Coordination", text: "Local support throughout planning, installation, commissioning and after-sales service." },
-      { title: "International Technology", text: "Elevator and escalator solutions developed according to recognized international manufacturing and safety standards." },
-    ],
-    sjecEyebrow: "THE PARTNERSHIP",
-    sjecTitle: "Why SJEC.",
-    sjecText: `SJEC is one of the world's leading elevator and escalator manufacturers, founded in 1992. Its systems operate in ${site.sjecCountries} countries — from metro systems and airports to pavilions at the Shanghai World Expo. As SJEC's authorized partner in Georgia, ZENA brings this technology to the local market, supported by its own local team.`,
-    sjecNote: "Certifications refer to SJEC manufacturing and quality systems.",
-    facts: [
-      { value: "1992", label: "SJEC founded" },
-      { value: site.sjecCountries, label: "countries with SJEC installations" },
-      { value: "24/7", label: "ZENA service support" },
+    storyAlt: "Two engineers inspecting an open elevator during a commissioning walkthrough",
+    offerEyebrow: "What We Offer",
+    offerTitle: "One Company. Four Promises",
+    offerText:
+      "From the start of construction, choosing the right elevator, maintaining what exists, repairing any brand, or modernizing old systems — ZENA is your trusted partner in Georgia for every elevator need.",
+    offer: [
+      {
+        title: "Sales",
+        tag: "Authorized SJEC Partner",
+        points: ["MRL, High-Speed, Villa, Freight", "Escalators & Moving Walks", "Traffic Analysis Included", "Transparent Pricing"],
+      },
+      {
+        title: "Technical Service",
+        tag: "Any Brand — Monthly Contracts",
+        points: ["Otis, Kone, Schindler, Mitsubishi", "Every Brand", "Monthly Service Contracts", "24/7 Emergency Call-Out"],
+      },
+      {
+        title: "Repair",
+        tag: "Any Brand — Fast Response",
+        points: ["Emergency Breakdown Repair", "Every Brand & Model", "Original & Compatible Parts", "Same-Day Call-Out"],
+      },
+      {
+        title: "Modernization",
+        tag: "Any Old Elevator — Any Brand",
+        points: ["Control System Upgrade", "Cabin & Door Renewal", "EN81 Safety Standard", "Up to 40% Energy Savings"],
+      },
     ],
     cta: { title: "Let's talk about your building.", text: "Whether it's a new installation or a fleet that needs a more reliable partner, we're ready to scope it." },
   },
@@ -46,32 +59,43 @@ const copy = {
     metaDesc:
       "ZENA Elevators არის ქართული ვერტიკალური ტრანსპორტის კომპანია, რომელიც აერთიანებს SJEC-ის საერთაშორისო ტექნოლოგიას პროექტის პროფესიონალურ ადგილობრივ კოორდინაციას, მონტაჟსა და ტექნიკურ მხარდაჭერასთან.",
     eyebrow: "ZENA-ს შესახებ",
-    title: "ახალი სტანდარტი ვერტიკალური ტრანსპორტისთვის საქართველოში",
-    text: "ZENA Elevators არის ქართული ვერტიკალური ტრანსპორტის კომპანია, რომელიც გთავაზობთ ლიფტებისა და ესკალატორების გადაწყვეტილებებს საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის. ჩვენ ვაერთიანებთ საერთაშორისო ტექნოლოგიას პროექტის პროფესიონალურ ადგილობრივ კოორდინაციასთან, მონტაჟსა და ტექნიკურ მხარდაჭერასთან.",
+    title: "ახალი სტანდარტი ლიფტებისა და ესკალატორების სფეროში",
+    text: "ZENA Elevators არის ქართული ვერტიკალური ტრანსპორტირების კომპანია, რომელიც გთავაზობთ ლიფტებისა და ესკალატორების სწორ გადაწყვეტას - საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის.",
     storyEyebrow: "ჩვენი ისტორია",
-    storyTitle: "უფრო პასუხისმგებლიანი მიდგომა ლიფტის პროექტებისადმი.",
+    storyTitle: "ახალი მიდგომა ვერტიკალური ტრანსპორტირების სფეროში",
     story: [
-      "ZENA დაარსდა იმისთვის, რომ ქართულ ბაზარს ლიფტის პროექტებისადმი უფრო პასუხისმგებლიანი და ტექნიკურად ორიენტირებული მიდგომა შესთავაზოს. ჩვენი მიზანია საიმედო საერთაშორისო აღჭურვილობა გავაერთიანოთ პროექტის მკაფიო კოორდინაციასთან, გამჭვირვალე კომუნიკაციასა და ოპერატიულ ადგილობრივ მხარდაჭერასთან.",
-      "SJEC-თან თანამშრომლობის წყალობით, ჩვენ გვაქვს წვდომა ლიფტების, ესკალატორებისა და მოძრავი ბილიკების ფართო პორტფოლიოზე, რომელიც სხვადასხვა ტიპის შენობისა და მგზავრთნაკადის მოთხოვნებისთვის არის შექმნილი.",
+      "ZENA დაარსდა საქართველოში ვერტიკალური ტრანსპორტირების სფეროში ახალი სტანდარტების დასამკვიდრებლად. ჩვენ ვაერთიანებთ საერთაშორისო ტექნოლოგიებსა და ადგილობრივ საინჟინრო გამოცდილებას, რათა უზრუნველვყოთ პროექტების ეფექტიანი მართვა, გამჭვირვალე კომუნიკაცია და საიმედო ტექნიკური მომსახურება.",
+      "SJEC-ის ოფიციალური პარტნიორის სტატუსით, მომხმარებლებს ვთავაზობთ ლიფტების, ესკალატორებისა და მოძრავი ბილიკების ფართო არჩევანს, რომელიც მორგებულია სხვადასხვა ტიპის შენობებისა და პროექტების საჭიროებებზე.",
     ],
     storyMedia: "ZENA-ს ინჟინრები · ექსპლუატაციაში გაშვება",
-    commitEyebrow: "როგორ ვმუშაობთ",
-    commitTitle: "სამი ვალდებულება ყოველი პროექტის უკან.",
-    commitments: [
-      { title: "გამჭვირვალე პროექტის მართვა", text: "მკაფიო სპეციფიკაციები, კომერციული პირობები და პროექტის პასუხისმგებლობები თავიდანვე." },
-      { title: "პროფესიონალური ადგილობრივი კოორდინაცია", text: "ადგილობრივი მხარდაჭერა დაგეგმვის, მონტაჟის, ექსპლუატაციაში გაშვებისა და გაყიდვის შემდგომი სერვისის განმავლობაში." },
-      { title: "საერთაშორისო ტექნოლოგია", text: "ლიფტებისა და ესკალატორების გადაწყვეტილებები, შექმნილი აღიარებული საერთაშორისო საწარმოო და უსაფრთხოების სტანდარტების შესაბამისად." },
+    storyAlt: "ორი ინჟინერი ათვალიერებს გახსნილ ლიფტს ექსპლუატაციაში გაშვების დროს",
+    offerEyebrow: "რას გთავაზობთ",
+    offerTitle: "ერთი კომპანია - ოთხი დაპირება",
+    offerText:
+      "მშენებლობის დაწყებისთანავე სწორად ლიფტების შერჩევა, არსებულის მოვლა, ნებისმიერი ბრენდის შეკეთება თუ ძველი სისტემების მოდერნიზაცია — ZENA არის საქართველოში სანდო პარტნიორი ლიფტებთან დაკავშირებულ ყველა საჭიროებაზე.",
+    offer: [
+      {
+        title: "გაყიდვები",
+        tag: "SJEC-ის ავტორიზებული პარტნიორი",
+        points: ["MRL, მაღალსიჩქარიანი, ვილა, სატვირთო", "ესკალატორები და მოძრავი ბილიკები", "ტრაფიკის ანალიზი", "გამჭვირვალე ფასები"],
+      },
+      {
+        title: "ტექნიკური მომსახურება",
+        tag: "ნებისმიერი ბრენდი — ყოველთვიური კონტრაქტები",
+        points: ["Otis, Kone, Schindler, Mitsubishi", "ყველა ბრენდი", "ყოველთვიური სერვის-კონტრაქტები", "24/7 გადაუდებელი გამოძახება"],
+      },
+      {
+        title: "შეკეთება",
+        tag: "ნებისმიერი ბრენდი — სწრაფი რეაგირება",
+        points: ["გადაუდებელი ავარიული შეკეთება", "ყველა ბრენდი და მოდელი", "ორიგინალი და თავსებადი ნაწილები", "გამოძახება იმავე დღეს"],
+      },
+      {
+        title: "მოდერნიზაცია",
+        tag: "ნებისმიერი ძველი ლიფტი — ნებისმიერი ბრენდი",
+        points: ["მართვის სისტემის განახლება", "კაბინისა და კარის განახლება", "უსაფრთხოების სტანდარტი EN81", "ენერგოდანახარჯების 40%-მდე შემცირება"],
+      },
     ],
-    sjecEyebrow: "პარტნიორობა",
-    sjecTitle: "რატომ SJEC.",
-    sjecText: `SJEC არის ლიფტებისა და ესკალატორების ერთ-ერთი წამყვანი მსოფლიო მწარმოებელი, დაარსებული 1992 წელს. მისი სისტემები ${site.sjecCountries} ქვეყანაში მუშაობს — მეტროსა და აეროპორტებიდან შანხაის World Expo-ს პავილიონებამდე. როგორც SJEC-ის ავტორიზებული პარტნიორი საქართველოში, ZENA ამ ტექნოლოგიას ადგილობრივ ბაზარზე ამკვიდრებს საკუთარი ადგილობრივი გუნდის მხარდაჭერით.`,
-    sjecNote: "სერტიფიკატები SJEC-ის წარმოებისა და ხარისხის მართვის სისტემებს ეხება.",
-    facts: [
-      { value: "1992", label: "SJEC-ის დაარსება" },
-      { value: site.sjecCountries, label: "ქვეყანა SJEC-ის სისტემებით" },
-      { value: "24/7", label: "ZENA-ს სერვისის მხარდაჭერა" },
-    ],
-    cta: { title: "განვიხილოთ თქვენი შენობა.", text: "ახალი მონტაჟი იქნება ეს თუ უფრო საიმედო პარტნიორის მაძიებელი არსებული პარკი — მზად ვართ, შევაფასოთ." },
+    cta: { title: "განვიხილოთ თქვენი პროექტი", text: "იქნება ეს ახალი მონტაჟი, მოდერნიზაცია თუ ტექნიკური მომსახურება — ჩვენი გუნდი მზად არის დაგეხმაროთ სწორი გადაწყვეტის პოვნაში." },
   },
 } satisfies L<Record<string, unknown>>
 
@@ -102,63 +126,66 @@ export default function About() {
               ))}
             </div>
           </div>
-          <Media label={t.storyMedia} className="aspect-[4/3] w-full" />
+          <Media src="/images/about-story.webp" alt={t.storyAlt} label={t.storyMedia} className="aspect-[4/3] w-full" />
         </Container>
       </section>
 
-      <section className="bg-alt py-16 lg:py-24">
+      <section className="bg-night py-16 text-white lg:py-24">
         <Container>
-          <Eyebrow>{t.commitEyebrow}</Eyebrow>
-          <h2 className="mt-3 max-w-xl text-[32px] leading-[1.12] text-ink sm:text-[40px]">{t.commitTitle}</h2>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {t.commitments.map((m, i) => (
-              <div key={m.title} className="border border-line bg-card p-7">
-                <span className="font-mono text-[11px] tracking-[0.14em] text-accent-text">0{i + 1}</span>
-                <h3 className="mt-4 text-[24px] leading-tight text-ink">{m.title}</h3>
-                <p className="mt-3 text-[14.5px] leading-[1.75] text-muted">{m.text}</p>
-              </div>
-            ))}
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end lg:gap-16">
+            <div>
+              <Eyebrow onDark>{t.offerEyebrow}</Eyebrow>
+              <h2 className="mt-3 max-w-xl text-[32px] leading-[1.12] text-white sm:text-[40px]">{t.offerTitle}</h2>
+            </div>
+            <p className="text-[16.5px] leading-[1.8] text-white/65">{t.offerText}</p>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
+            {t.offer.map((o, i) => {
+              const Icon = offerIcons[i]
+              return (
+                <article
+                  key={o.title}
+                  className="group relative flex flex-col overflow-hidden border border-white/10 bg-night-2 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/60 lg:row-span-3 lg:grid lg:grid-rows-subgrid"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold via-[#e2bd82] to-gold/30"
+                  />
+                  <header>
+                    <div className="flex items-center gap-4">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/50 text-[#d1a15e] transition-colors duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-night">
+                        <Icon width={22} height={22} />
+                      </span>
+                      <span className="h-px flex-1 bg-white/12" aria-hidden />
+                      <span className="font-mono text-[12px] tracking-[0.18em] text-[#d1a15e]" aria-hidden>
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="mt-7 text-[25px] leading-[1.2] text-white">{o.title}</h3>
+                  </header>
+                  <p className="mt-4 mb-1 border-l-2 border-gold pl-3 text-[13.5px] leading-[1.55] text-[#d1a15e]">
+                    {o.tag}
+                  </p>
+                  <ul className="mt-6 space-y-3.5 border-t border-white/10 pt-6">
+                    {o.points.map((pt) => (
+                      <li key={pt} className="flex gap-3 text-[14.5px] leading-[1.5] text-white/80">
+                        <CheckIcon className="mt-0.5 shrink-0 text-[#d1a15e]" width={16} height={16} />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              )
+            })}
           </div>
         </Container>
       </section>
 
-      <section className="bg-surface py-16 lg:py-24">
-        <Container className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="border border-line bg-alt p-8 sm:p-10">
-            <SjecBadge />
-            <p className="mt-5 font-mono text-[10.5px] tracking-[0.14em] text-muted uppercase">
-              {c.brand.manufacturingPartner}
-            </p>
-            <dl className="mt-8 grid grid-cols-3 gap-4">
-              {t.facts.map((f) => (
-                <div key={f.label}>
-                  <dd className="font-serif text-[34px] leading-none text-ink">{f.value}</dd>
-                  <dt className="mt-2 text-[12px] leading-snug text-muted">{f.label}</dt>
-                </div>
-              ))}
-            </dl>
-            <ul className="mt-8 flex flex-wrap gap-2.5 font-mono text-[11px] tracking-[0.1em] text-muted">
-              {["ISO 9001", "ISO 14001", "ISO 45001", "CE"].map((b) => (
-                <li key={b} className="border border-line bg-card px-3 py-2">
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 text-[12px] text-muted/80">{t.sjecNote}</p>
-          </div>
-          <div>
-            <Eyebrow>{t.sjecEyebrow}</Eyebrow>
-            <h2 className="mt-3 text-[32px] leading-[1.12] text-ink sm:text-[40px]">{t.sjecTitle}</h2>
-            <p className="mt-5 text-[16.5px] leading-[1.85] text-muted">{t.sjecText}</p>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-night py-16 text-white lg:py-20">
+      <section className="bg-surface py-16 lg:py-20">
         <Container className="flex flex-wrap items-center justify-between gap-8">
           <div className="max-w-xl">
-            <h2 className="text-[30px] leading-tight text-white sm:text-[38px]">{t.cta.title}</h2>
-            <p className="mt-3 text-[16px] leading-[1.7] text-white/65">{t.cta.text}</p>
+            <h2 className="text-[30px] leading-tight text-ink sm:text-[38px]">{t.cta.title}</h2>
+            <p className="mt-3 text-[16px] leading-[1.7] text-muted">{t.cta.text}</p>
           </div>
           <Button to="/contact">{c.cta.requestQuote}</Button>
         </Container>

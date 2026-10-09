@@ -294,6 +294,7 @@ export const posts: Post[] = [
       ka: "ლიფტები გაფრთხილების გარეშე იშვიათად ფუჭდება. აი, ხუთი სიგნალი, რომელიც დაუყოვნებლივ შემოწმებას საჭიროებს.",
     },
     media: { en: "door operator inspection", ka: "კარის მექანიზმის შემოწმება" },
+    image: "/images/blog/five-signs-your-elevator-needs-attention.webp",
     body: {
       en: [
         { type: "p", text: "Elevators don't usually fail without warning." },

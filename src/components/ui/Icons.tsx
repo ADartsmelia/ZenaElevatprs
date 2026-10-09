@@ -77,3 +77,26 @@ export const InstagramIcon = (p: P) => (
     <path d="M17.2 6.8v.01" />
   </svg>
 )
+
+export const TagIcon = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M3 12V4h8l9.5 9.5a1.4 1.4 0 0 1 0 2L15 21a1.4 1.4 0 0 1-2 0L3 12Z" />
+    <circle cx="7.5" cy="8.5" r="1.2" />
+  </svg>
+)
+export const WrenchIcon = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M15 4.5a4.5 4.5 0 0 0-4.2 6.1L4 17.4a2 2 0 0 0 2.8 2.8l6.8-6.8A4.5 4.5 0 0 0 19.5 9l-2.8 2.8-2.5-.5-.5-2.5L16.5 6A4.5 4.5 0 0 0 15 4.5Z" />
+  </svg>
+)
+export const BoltIcon = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M13 2 4.5 13.5H11L10 22l9-12h-6.5L13 2Z" />
+  </svg>
+)
+export const ModernizeIcon = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M20 12a8 8 0 0 1-13.9 5.4M4 12A8 8 0 0 1 17.9 6.6" />
+    <path d="M18 3v4h-4M6 21v-4h4" />
+  </svg>
+)

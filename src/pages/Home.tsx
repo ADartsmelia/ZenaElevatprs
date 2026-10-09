@@ -249,7 +249,7 @@ export default function Home() {
             <p className="mt-6 text-[12.5px] text-muted/80">{c.brand.poweredBy}</p>
           </div>
 
-          <div className="relative">
+          <div className="relative self-center">
             <Media
               src="/images/hero-sketch.webp"
               alt={t.hero.alt}
