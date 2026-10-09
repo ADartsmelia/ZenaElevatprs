@@ -70,7 +70,9 @@ about 12 minutes. Open `http://localhost:5173/intro-render.html` to inspect the 
 
 Build command `npm run build`, output directory `dist`. **Set "Catchall document" to
 `index.html`** (see `.do/app.yaml`), otherwise refreshing `/products` or `/ka/blog` returns 404.
-Then point `zenaelevators.ge` at the app under *Settings → Domains*.
+`public/404.html` is a built-in fallback that sends unknown paths into the app, so deep links and
+refreshes also work without that setting. Then point `zenaelevators.ge` at the app under
+*Settings → Domains*.
 
 ## Before launch checklist
 

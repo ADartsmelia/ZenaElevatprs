@@ -51,6 +51,14 @@
     <script>
       (function () {
         try {
+          // arriving via 404.html: restore the originally requested address before the app starts
+          var wanted = sessionStorage.getItem("zena-redirect");
+          if (wanted) {
+            sessionStorage.removeItem("zena-redirect");
+            if (location.pathname === "/") history.replaceState(null, "", wanted);
+          }
+        } catch (e) {}
+        try {
           var p = location.pathname;
           var home = p === "/" || p === "/ka" || p === "/ka/";
           var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -65,6 +73,10 @@
               ? "/intro/zena-intro-portrait.mp4"
               : "/intro/zena-intro-landscape.mp4";
             document.head.appendChild(l);
+            // failsafe: never stay on the dark pre-intro background, whatever happens
+            setTimeout(function () {
+              document.documentElement.classList.remove("intro-pending");
+            }, 10000);
           }
         } catch (e) {}
       })();

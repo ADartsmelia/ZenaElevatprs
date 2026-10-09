@@ -12,8 +12,13 @@ import "./intro.css"
  */
 
 const SESSION_KEY = "zena-intro-seen"
-/** If the video is not ready by then (slow network) the intro is skipped, never blocking the site. */
-const READY_TIMEOUT_MS = 4000
+/**
+ * Safety nets so the intro can never leave a black screen: if playback hasn't actually started,
+ * stalls, or simply runs too long, the overlay is dropped and the site is shown.
+ */
+const START_TIMEOUT_MS = 3000
+const STALL_TIMEOUT_MS = 2500
+const HARD_CAP_MS = 9000
 
 const isHome = (pathname: string) => pathname === "/" || pathname === "/ka" || pathname === "/ka/"
 
@@ -81,38 +86,74 @@ export default function ElevatorIntro() {
     }
   }, [playing])
 
-  // Start once enough is buffered to play straight through; give up quietly if that takes too long
-  // or the browser blocks autoplay.
+  // Start playback robustly. Two real-world traps this avoids:
+  //  * waiting for "canplaythrough" never works when mobile Chrome downgrades `preload` (mobile data),
+  //  * calling play() immediately is rejected with AbortError ("video-only background media was
+  //    paused to save power") until Chrome has noticed the video is on screen.
+  // So we keep retrying play() until it sticks. Only a genuine autoplay block skips the intro.
   useEffect(() => {
     if (!playing) return
     const video = videoRef.current
     if (!video) return
 
-    let begun = false
-    const giveUp = window.setTimeout(() => {
-      if (!begun) finish()
-    }, READY_TIMEOUT_MS)
+    let stallTimer = 0
+    let retryTimer = 0
+    let playingNow = false
+    let gaveUp = false
 
-    const begin = () => {
-      if (begun) return
-      begun = true
-      window.clearTimeout(giveUp)
-      video
-        .play()
-        .then(() => setStarted(true))
-        .catch(finish)
+    const startTimer = window.setTimeout(() => {
+      if (!playingNow) {
+        gaveUp = true
+        finish()
+      }
+    }, START_TIMEOUT_MS)
+    const hardCap = window.setTimeout(() => leave(0.4), HARD_CAP_MS)
+
+    const attempt = () => {
+      if (playingNow || gaveUp) return
+      video.play().catch((err: unknown) => {
+        if ((err as { name?: string })?.name === "NotAllowedError") {
+          gaveUp = true
+          finish() // autoplay blocked (e.g. iOS low-power mode): just show the site
+        } else {
+          retryTimer = window.setTimeout(attempt, 120) // AbortError etc.: not on screen yet, try again
+        }
+      })
     }
 
-    if (video.readyState >= 3) begin()
-    else video.addEventListener("canplaythrough", begin, { once: true })
+    const onPlaying = () => {
+      playingNow = true
+      window.clearTimeout(startTimer)
+      window.clearTimeout(retryTimer)
+      window.clearTimeout(stallTimer)
+      setStarted(true)
+    }
+    const onWaiting = () => {
+      window.clearTimeout(stallTimer)
+      stallTimer = window.setTimeout(() => leave(0.4), STALL_TIMEOUT_MS)
+    }
+    video.addEventListener("playing", onPlaying)
+    video.addEventListener("waiting", onWaiting)
+    video.addEventListener("loadeddata", attempt)
+    video.addEventListener("canplay", attempt)
+
+    video.muted = true
+    video.setAttribute("muted", "") // iOS Safari wants the attribute itself, which React doesn't write
+    attempt()
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") leave(0.35)
     }
     window.addEventListener("keydown", onKey)
     return () => {
-      window.clearTimeout(giveUp)
-      video.removeEventListener("canplaythrough", begin)
+      window.clearTimeout(startTimer)
+      window.clearTimeout(retryTimer)
+      window.clearTimeout(stallTimer)
+      window.clearTimeout(hardCap)
+      video.removeEventListener("playing", onPlaying)
+      video.removeEventListener("waiting", onWaiting)
+      video.removeEventListener("loadeddata", attempt)
+      video.removeEventListener("canplay", attempt)
       window.removeEventListener("keydown", onKey)
     }
   }, [playing, finish, leave])

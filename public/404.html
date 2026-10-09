@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>ZENA Elevators</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #14100d;
+      }
+    </style>
+    <script>
+      /*
+       * Single-page-app fallback. Static hosts answer deep links such as /ka or /products with this
+       * file (404). Remember the address, load the app at "/", and index.html restores the address
+       * before the app starts, so refreshes and shared links work on any host.
+       */
+      try {
+        sessionStorage.setItem("zena-redirect", location.pathname + location.search + location.hash);
+      } catch (e) {}
+      location.replace("/");
+    </script>
+  </head>
+  <body>
+    <noscript><a href="/">ZENA Elevators</a></noscript>
+  </body>
+</html>

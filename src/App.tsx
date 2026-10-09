@@ -3,6 +3,7 @@ import { ThemeProvider } from "./lib/theme"
 import { LangProvider, storedLang, type Lang } from "./i18n"
 import Layout from "./components/layout/Layout"
 import ElevatorIntro from "./components/intro/ElevatorIntro"
+import IntroBoundary from "./components/intro/IntroBoundary"
 import Home from "./pages/Home"
 import Products from "./pages/Products"
 import ProductDetail from "./pages/ProductDetail"
@@ -52,7 +53,9 @@ function LangShell({ lang }: { lang: Lang }) {
 
   return (
     <LangProvider lang={lang}>
-      <ElevatorIntro />
+      <IntroBoundary>
+        <ElevatorIntro />
+      </IntroBoundary>
       <AppRoutes />
     </LangProvider>
   )
