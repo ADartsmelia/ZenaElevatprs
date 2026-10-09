@@ -2,15 +2,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ZENA Elevators — Elevator & Escalator Solutions in Georgia</title>
+    <meta
+      name="description"
+      content="Authorized SJEC partner in Georgia. Elevator and escalator solutions for residential, commercial and public buildings — consultation, supply, installation, modernization and long-term service."
+    />
+    <meta name="theme-color" content="#1c1713" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ZENA Elevators" />
+    <meta property="og:title" content="ZENA Elevators — Elevator & Escalator Solutions in Georgia" />
+    <meta
+      property="og:description"
+      content="Authorized SJEC partner in Georgia. Consultation, supply, installation, modernization and long-term service."
+    />
+    <meta property="og:url" content="https://www.zenaelevators.ge/" />
+    <meta property="og:image" content="https://www.zenaelevators.ge/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Spectral:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Manrope:wght@200..800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Georgian:wght@100..900&family=Noto+Serif+Georgian:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <title>ZENA Elevators — SJEC Partner, Georgia</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ZENA Elevators LLC",
+        "url": "https://www.zenaelevators.ge",
+        "logo": "https://www.zenaelevators.ge/og-image.png",
+        "email": "info@zenaelevators.ge",
+        "telephone": "+995599277453",
+        "address": { "@type": "PostalAddress", "addressLocality": "Tbilisi", "addressCountry": "GE" }
+      }
+    </script>
+
+    <!-- Keep the page dark (no white flash) and start fetching the video while the elevator intro is about to play. -->
+    <script>
+      (function () {
+        try {
+          var p = location.pathname;
+          var home = p === "/" || p === "/ka" || p === "/ka/";
+          var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (home && !reduce && !sessionStorage.getItem("zena-intro-seen")) {
+            document.documentElement.classList.add("intro-pending");
+            // start fetching the intro video right away (before the app bundle has loaded)
+            var l = document.createElement("link");
+            l.rel = "preload";
+            l.as = "video";
+            l.type = "video/mp4";
+            l.href = matchMedia("(orientation: portrait)").matches
+              ? "/intro/zena-intro-portrait.mp4"
+              : "/intro/zena-intro-landscape.mp4";
+            document.head.appendChild(l);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

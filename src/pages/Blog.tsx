@@ -1,68 +1,88 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
-import Container from "../components/Container"
-import Eyebrow from "../components/Eyebrow"
-import ImagePlaceholder from "../components/ImagePlaceholder"
-import { blogPosts, categories } from "../data/blogPosts"
+import Container from "../components/ui/Container"
+import Eyebrow from "../components/ui/Eyebrow"
+import Media from "../components/ui/Media"
+import { LocLink, useLang, type L } from "../i18n"
+import { usePageMeta } from "../lib/seo"
+import { allLabel, categoryLabels, formatPostMeta, posts, type Post } from "../data/blog"
+
+const copy = {
+  en: {
+    metaTitle: "Blog — Straight answers on elevators",
+    metaDesc:
+      "Buying guides, maintenance signals and honest cost breakdowns for developers, owners and architects planning elevators in Georgia.",
+    eyebrow: "THE ZENA JOURNAL",
+    title: "Straight answers for developers, owners & architects.",
+    text: "Buying guides, maintenance signals and honest cost breakdowns for anyone planning, buying or running elevators in Georgia.",
+  },
+  ka: {
+    metaTitle: "ბლოგი — პირდაპირი პასუხები ლიფტებზე",
+    metaDesc:
+      "სახელმძღვანელოები, მომსახურების სიგნალები და გულწრფელი ფასთაგანი დეველოპერების, მფლობელებისა და არქიტექტორებისთვის, რომლებიც საქართველოში ლიფტებს გეგმავენ.",
+    eyebrow: "ZENA-ს ჟურნალი",
+    title: "პირდაპირი პასუხები დეველოპერებისთვის, მფლობელებისა და არქიტექტორებისთვის.",
+    text: "სახელმძღვანელოები, მომსახურების სიგნალები და გულწრფელი ფასთაგანი ყველასთვის, ვინც საქართველოში ლიფტებს გეგმავს, ყიდულობს ან ამუშავებს.",
+  },
+} satisfies L<Record<string, unknown>>
+
+type Filter = "all" | Post["category"]
 
 export default function Blog() {
-  const [active, setActive] = useState("All")
+  const lang = useLang()
+  const t = copy[lang]
+  usePageMeta({ title: t.metaTitle, description: t.metaDesc })
 
-  const filtered =
-    active === "All" ? blogPosts : blogPosts.filter((p) => p.category === active)
+  const [active, setActive] = useState<Filter>("all")
+  const cats = Array.from(new Set(posts.map((p) => p.category)))
+  const filtered = active === "all" ? posts : posts.filter((p) => p.category === active)
 
   return (
     <>
-      <section className="bg-white py-16 dark:bg-dark">
+      <section className="bg-alt py-16 lg:py-20">
         <Container>
-          <Eyebrow>THE ZENA JOURNAL</Eyebrow>
-          <h1 className="mt-3 max-w-2xl text-3xl font-bold text-ink sm:text-4xl dark:text-white">
-            Straight answers for developers, owners & architects.
-          </h1>
-          <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-muted dark:text-white/60">
-            Buying guides, maintenance signals and honest cost breakdowns — from 15+ years
-            installing elevators and escalators across Georgia.
-          </p>
+          <Eyebrow>{t.eyebrow}</Eyebrow>
+          <h1 className="mt-4 max-w-3xl text-[36px] leading-[1.1] text-ink sm:text-[52px]">{t.title}</h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-[1.8] text-muted">{t.text}</p>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {categories.map((c) => (
+          <div className="mt-9 flex flex-wrap gap-2" role="group" aria-label="Filter">
+            {(["all", ...cats] as Filter[]).map((c) => (
               <button
                 key={c}
+                type="button"
                 onClick={() => setActive(c)}
-                className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                aria-pressed={active === c}
+                className={`rounded-full border px-4 py-1.5 text-[13px] transition-colors ${
                   active === c
-                    ? "border-ink bg-ink text-white dark:border-white dark:bg-white dark:text-ink"
-                    : "border-ink/15 text-muted hover:border-ink/40 dark:border-white/20 dark:text-white/60"
+                    ? "border-ink bg-ink text-surface"
+                    : "border-line bg-card text-muted hover:border-ink/40 hover:text-ink"
                 }`}
               >
-                {c}
+                {c === "all" ? allLabel[lang] : categoryLabels[c][lang]}
               </button>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="bg-cream py-16 dark:bg-white/5">
+      <section className="bg-surface py-14 lg:py-20">
         <Container>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((post) => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="group bg-white dark:bg-dark">
-                <ImagePlaceholder label={post.imageAlt} className="aspect-[4/3] w-full" />
-                <div className="p-5">
-                  <p className="font-mono text-[11px] tracking-wide text-accent uppercase">
-                    {post.category}
+              <LocLink key={post.slug} to={`/blog/${post.slug}`} className="group flex flex-col border border-line bg-card">
+                <Media src={post.image} label={post.media[lang]} className="aspect-[16/10] w-full" />
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="font-mono text-[10.5px] tracking-[0.14em] text-accent-text uppercase">
+                    {categoryLabels[post.category][lang]}
                   </p>
-                  <h2 className="mt-2 text-lg font-bold leading-snug text-ink group-hover:underline dark:text-white">
-                    {post.title}
+                  <h2 className="mt-3 text-[23px] leading-[1.2] text-ink group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">
+                    {post.title[lang]}
                   </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted dark:text-white/60">
-                    {post.excerpt}
-                  </p>
-                  <p className="mt-4 font-mono text-[11px] tracking-wide text-muted/70 dark:text-white/40">
-                    {post.date} · {post.readTime}
+                  <p className="mt-3 flex-1 text-[14px] leading-[1.7] text-muted">{post.excerpt[lang]}</p>
+                  <p className="mt-5 font-mono text-[10.5px] tracking-[0.12em] text-muted/80">
+                    {formatPostMeta(post, lang)}
                   </p>
                 </div>
-              </Link>
+              </LocLink>
             ))}
           </div>
         </Container>

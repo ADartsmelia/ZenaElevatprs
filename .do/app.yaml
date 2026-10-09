@@ -1,0 +1,18 @@
+# DigitalOcean App Platform spec for the ZENA static site.
+# `catchall_document` is essential: it makes deep links such as /products or /ka/blog
+# load the React app instead of returning 404 when the page is refreshed.
+name: zenaelevatprs
+static_sites:
+  - name: zena-site
+    github:
+      repo: ADartsmelia/ZenaElevatprs
+      branch: main
+      deploy_on_push: true
+    build_command: npm run build
+    output_dir: dist
+    catchall_document: index.html
+    envs:
+      # Form endpoint, e.g. https://formspree.io/f/xxxxxxx (forwards to info@zenaelevators.ge)
+      - key: VITE_FORM_ENDPOINT
+        value: ""
+        scope: BUILD_TIME

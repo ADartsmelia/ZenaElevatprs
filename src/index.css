@@ -2,41 +2,147 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Static tokens */
 @theme {
-  --font-serif: "Spectral", ui-serif, Georgia, serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif: "Cormorant Garamond", "Noto Serif Georgian", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", "Noto Sans Georgian", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Noto Sans Georgian", ui-monospace, monospace;
 
-  --color-ink: #2b2723;
-  --color-muted: #6f6357;
-  --color-accent: #a8702e;
-  --color-accent-dark: #8a5c24;
-  --color-cream: #f3f0ea;
-  --color-tan: #e3ddd1;
-  --color-dark: #1f1a16;
-  --color-dark-card: #2b2723;
+  --color-night: #1c1713;
+  --color-night-2: #26201a;
+  --color-gold: #b58a4f;
+}
+
+/* Semantic tokens: swap per theme via CSS variables */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-alt: var(--alt);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+}
+
+:root {
+  --surface: #ffffff;
+  --alt: #f5f1ea;
+  --card: #ffffff;
+  --ink: #2b2723;
+  --muted: #6b5f53;
+  --line: #e6dfd3;
+  --accent: #9a6a2b;
+  --accent-hover: #835821;
+  --accent-text: #8a5c24;
+  color-scheme: light;
+}
+
+.dark {
+  --surface: #14100d;
+  --alt: #1a1511;
+  --card: #211b16;
+  --ink: #f1ece4;
+  --muted: #a99d8e;
+  --line: rgba(255, 255, 255, 0.12);
+  --accent: #9a6a2b;
+  --accent-hover: #b07a33;
+  --accent-text: #d1a15e;
+  color-scheme: dark;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* reserve the scrollbar's width so toggling overflow (e.g. during the intro) never shifts the layout */
+    scrollbar-gutter: stable;
   }
 
   body {
     font-family: var(--font-sans);
-    color: var(--color-ink);
-    background: #ffffff;
+    font-weight: 350;
+    color: var(--ink);
+    background: var(--surface);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  .dark body {
-    color: #ece7e0;
-    background: var(--color-dark);
-  }
-
+  /* Display type is deliberately light and refined (feedback: ~20–25% thinner). */
   h1,
   h2,
   h3,
   blockquote {
     font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+
+  h1 {
+    font-weight: 500;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Georgian needs its own glyph set; slightly larger size, same rhythm. */
+  html[lang="ka"] body {
+    font-weight: 350;
+    letter-spacing: 0;
+  }
+  html[lang="ka"] h1,
+  html[lang="ka"] h2,
+  html[lang="ka"] h3 {
+    letter-spacing: 0;
+    font-weight: 500;
+    line-height: 1.22;
+  }
+  /* Georgian glyphs are wider than Latin ones: scale display sizes down so lines break naturally. */
+  html[lang="ka"] h1 {
+    font-size: clamp(32px, 4.1vw, 54px) !important;
+    line-height: 1.16 !important;
+  }
+  html[lang="ka"] h2 {
+    font-size: clamp(25px, 2.9vw, 35px) !important;
+    line-height: 1.22 !important;
+  }
+}
+
+/* Pre-React flash guard while the intro is pending (see index.html) */
+html.intro-pending,
+html.intro-pending body {
+  background: #120f0c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Z-Care heartbeat line draws itself once */
+.zc-pulse path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: zc-draw 2.6s ease-out 0.3s forwards;
+}
+@keyframes zc-draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }
