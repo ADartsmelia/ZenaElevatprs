@@ -17,7 +17,7 @@ const copy = {
     text: "Buying guides, maintenance signals and honest cost breakdowns for anyone planning, buying or running elevators in Georgia.",
   },
   ka: {
-    metaTitle: "ბლოგი — პირდაპირი პასუხები ლიფტებზე",
+    metaTitle: "ბლოგი - პირდაპირი პასუხები ლიფტებზე",
     metaDesc:
       "სახელმძღვანელოები, მომსახურების სიგნალები და გულწრფელი ფასთაგანი დეველოპერების, მფლობელებისა და არქიტექტორებისთვის, რომლებიც საქართველოში ლიფტებს გეგმავენ.",
     eyebrow: "ZENA-ს ჟურნალი",

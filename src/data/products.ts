@@ -194,7 +194,7 @@ export const categories: ProductCategory[] = [
     },
     summary: {
       en: "Home lifts need to be small, quiet and beautiful. SJEC's V300 \"CUBE\" series pairs a battery-driven system with an ultra-compact controller that can be fully concealed — so the lift fits the home, not the other way round.",
-      ka: "საოჯახო ლიფტი უნდა იყოს პატარა, ჩუმი და ლამაზი. SJEC-ის V300 „CUBE“ სერია აერთიანებს აკუმულატორზე მომუშავე სისტემასა და ულტრაკომპაქტურ მართვის კარადას, რომლის სრულად დამალვაც შესაძლებელია — ლიფტი სახლს ერგება და არა პირიქით.",
+      ka: "საოჯახო ლიფტი უნდა იყოს პატარა, ჩუმი და ლამაზი. SJEC-ის V300 „CUBE“ სერია აერთიანებს აკუმულატორზე მომუშავე სისტემასა და ულტრაკომპაქტურ მართვის კარადას, რომლის სრულად დამალვაც შესაძლებელია - ლიფტი სახლს ერგება და არა პირიქით.",
     },
     highlights: {
       en: [
@@ -207,7 +207,7 @@ export const categories: ProductCategory[] = [
       ka: [
         "აკუმულატორზე მომუშავე სისტემა: იმუხტება ღამის ტარიფზე და დენის გათიშვისას მუშაობას აგრძელებს",
         "მართვის კარადა ჩვეულებრივი კარადის მოცულობის დაახლოებით 17%-ია (დაახლ. 325 × 425 × 50 მმ)",
-        "ჩუმი მუშაობა — კონტაქტორის, ვენტილატორებისა და დამამუხრუჭებელი რეზისტორის გარეშე",
+        "ჩუმი მუშაობა - კონტაქტორის, ვენტილატორებისა და დამამუხრუჭებელი რეზისტორის გარეშე",
         "ჩაშენებული საავარიო კვება (ARD), აკუმულატორის მდგომარეობის მონიტორინგი, ავტომატური დონეზე გასწორება დაბალი მუხტისას",
         "კაბინის მოპირკეთება ნაკაწრებიანი ან სარკისებრი უჟანგავი ფოლადით: ბუნებრივი, შამპანური ოქრო, ბრინჯაო, ტიტანის ოქრო, ვარდისფერი ოქრო, მუქი ტიტანი",
       ],
@@ -310,7 +310,7 @@ export const categories: ProductCategory[] = [
         tag: { en: "Commercial", ka: "კომერციული" },
         description: {
           en: "Silence and comfort for continuous public traffic — malls, hotels and office blocks.",
-          ka: "სიჩუმე და კომფორტი უწყვეტი საზოგადოებრივი ნაკადისთვის — სავაჭრო ცენტრები, სასტუმროები და საოფისე შენობები.",
+          ka: "სიჩუმე და კომფორტი უწყვეტი საზოგადოებრივი ნაკადისთვის - სავაჭრო ცენტრები, სასტუმროები და საოფისე შენობები.",
         },
         specs: [
           { label: spec.inclination, value: "30° / 35°" },
@@ -349,7 +349,7 @@ export const categories: ProductCategory[] = [
         tag: { en: "Public transport · heavy duty", ka: "საზოგადოებრივი ტრანსპორტი · მძიმე რეჟიმი" },
         description: {
           en: "Weatherproof, heavy-duty construction for airports, subways and overpasses — built to run continuously outdoors.",
-          ka: "ამინდგამძლე, მძიმე რეჟიმის კონსტრუქცია აეროპორტებისთვის, მეტროსა და ესტაკადებისთვის — განკუთვნილია გარეთ უწყვეტი მუშაობისთვის.",
+          ka: "ამინდგამძლე, მძიმე რეჟიმის კონსტრუქცია აეროპორტებისთვის, მეტროსა და ესტაკადებისთვის - განკუთვნილია გარეთ უწყვეტი მუშაობისთვის.",
         },
         specs: [
           { label: spec.inclination, value: "FEH 23.2–35° · FEH20 30°" },
@@ -388,7 +388,7 @@ export const categories: ProductCategory[] = [
         tag: { en: "Moving walk", ka: "მოძრავი ბილიკი" },
         description: {
           en: "Reliable, high-efficiency, easy for maintenance — suited to hypermarkets and airports. Available in inclined (FET/FEF) and flat (FEW) configurations.",
-          ka: "საიმედო, მაღალეფექტური, მარტივად სამსახურებელი — შესაფერისია ჰიპერმარკეტებისა და აეროპორტებისთვის. ხელმისაწვდომია დახრილი (FET/FEF) და ჰორიზონტალური (FEW) კონფიგურაციით.",
+          ka: "საიმედო, მაღალეფექტური, მარტივად სამსახურებელი - შესაფერისია ჰიპერმარკეტებისა და აეროპორტებისთვის. ხელმისაწვდომია დახრილი (FET/FEF) და ჰორიზონტალური (FEW) კონფიგურაციით.",
         },
         specs: [
           { label: spec.inclination, value: "FET/FEF 10/11/12° · FEW 0–6°" },
@@ -427,7 +427,7 @@ export const categories: ProductCategory[] = [
         tag: { en: "Trolley conveyor", ka: "ეტლების კონვეიერი" },
         description: {
           en: "A shopping cart/trolley transport system with high efficiency and small installation space — usually installed beside escalators, separating people and trolleys into two paths for better safety.",
-          ka: "სავაჭრო ეტლების გადამზიდი სისტემა მაღალი ეფექტურობითა და მცირე სამონტაჟო სივრცით — ჩვეულებრივ ესკალატორის გვერდით მონტაჟდება, ადამიანებსა და ეტლებს ორ ცალკე გზაზე ანაწილებს.",
+          ka: "სავაჭრო ეტლების გადამზიდი სისტემა მაღალი ეფექტურობითა და მცირე სამონტაჟო სივრცით - ჩვეულებრივ ესკალატორის გვერდით მონტაჟდება, ადამიანებსა და ეტლებს ორ ცალკე გზაზე ანაწილებს.",
         },
         specs: [
           { label: spec.inclination, value: "30° / 35°" },
