@@ -2,6 +2,7 @@ import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
 import Button from "../components/ui/Button"
 import { CheckIcon } from "../components/ui/Icons"
+import { LogoMark } from "../components/brand/Logo"
 import { useLang, type L } from "../i18n"
 import { useCommon } from "../i18n/useCommon"
 import { usePageMeta } from "../lib/seo"
@@ -18,9 +19,9 @@ const copy = {
     metaDesc:
       "Z-Care combines AI, IoT and 24/7 remote monitoring to protect the reliability, safety and value of your elevators — available as an upgrade to ZENA's post-warranty maintenance program.",
     eyebrow: "Z-CARE · REMOTE MONITORING",
-    title: "Smart care for your elevators.",
+    title: "Continuous remote monitoring",
     text: "AI, IoT and 24/7 remote monitoring protect the reliability and safety of your elevators.",
-    note: "Z-Care is available as an upgrade to our post-warranty maintenance program.",
+    note: "Smart care for your elevators.",
     monitorEyebrow: "WHAT Z-CARE WATCHES",
     monitorTitle: "Every signal that matters, continuously.",
     monitor: [
@@ -46,16 +47,16 @@ const copy = {
       { title: "24/7 monitoring", text: "Instant alerts and diagnostics." },
     ] satisfies Item[],
     gainEyebrow: "WHAT YOU GAIN",
-    gainTitle: "Reliability you can plan around.",
+    gainTitle: "Innovation that changes the standard of service",
     gain: [
       { title: "Maximum uptime", text: "Minimizing unforeseen faults and ensuring reliable operation." },
       { title: "Early forecasting", text: "AI predicts a problem before it becomes a failure." },
       { title: "Faster response", text: "Remote diagnostics let us equip technical staff in advance with the right tools and spare parts." },
-      { title: "Lower costs", text: "Condition-based care reduces costly emergency repairs." },
+      { title: "Minimal costs", text: "Condition-based care reduces costly emergency repairs." },
       { title: "Passenger safety", text: "Continuous monitoring catches abnormal conditions early." },
-      { title: "Equipment longevity", text: "Early intervention reduces wear on critical parts." },
+      { title: "Service life", text: "Timely intervention reduces wear on critical components." },
       { title: "Full transparency", text: "Owners get a complete picture of the elevators' condition and history." },
-      { title: "Future-ready technology", text: "AI, IoT and cloud computing in one ecosystem — for your building's lasting reliability." },
+      { title: "Innovative technology", text: "AI, IoT and cloud computing in one ecosystem — for your building's lasting reliability." },
     ] satisfies Item[],
     cta: {
       title: "Interested in Z-Care for your building?",
@@ -67,9 +68,9 @@ const copy = {
     metaDesc:
       "Z-Care აერთიანებს ხელოვნურ ინტელექტს, IoT-სა და 24/7 დისტანციურ მონიტორინგს თქვენი ლიფტების საიმედოობის, უსაფრთხოებისა და ღირებულების დასაცავად — ხელმისაწვდომია, როგორც განახლება ZENA-ს საგარანტიო-შემდგომ მოვლის პროგრამაში.",
     eyebrow: "Z-CARE · დისტანციური მონიტორინგი",
-    title: "ჭკვიანი მოვლა თქვენი ლიფტებისთვის.",
+    title: "უწყვეტი დისტანციური მონიტორინგი",
     text: "ხელოვნური ინტელექტი, IoT და 24/7 დისტანციური მონიტორინგი იცავს თქვენი ლიფტების საიმედოობასა და უსაფრთხოებას.",
-    note: "Z-Care ხელმისაწვდომია, როგორც განახლება ჩვენს საგარანტიო-შემდგომ მოვლის პროგრამაში.",
+    note: "ჭკვიანი მოვლა თქვენი ლიფტებისთვის.",
     monitorEyebrow: "რას აკვირდება Z-CARE",
     monitorTitle: "ყველა მნიშვნელოვანი სიგნალი, უწყვეტად.",
     monitor: [
@@ -95,16 +96,16 @@ const copy = {
       { title: "24/7 მონიტორინგი", text: "მყისიერი შეტყობინება და დიაგნოსტიკა." },
     ] satisfies Item[],
     gainEyebrow: "რას იღებთ",
-    gainTitle: "საიმედოობა, რომელზეც შეგიძლიათ დაგეგმოთ.",
+    gainTitle: "ინოვაცია, რომელიც ცვლის მომსახურების სტანდარტს",
     gain: [
       { title: "მაქსიმალური ხელმისაწვდომობა", text: "გაუთვალისწინებელი ხარვეზების მინიმუმამდე დაყვანა და საიმედო ექსპლუატაცია." },
       { title: "ადრეული პროგნოზირება", text: "AI პროგნოზირებს პრობლემას დაზიანებამდე" },
       { title: "სწრაფი რეაგირება", text: "დისტანციური დიაგნოსტიკის გამოყენება უზრუნველყოფს ტექნიკური პერსონალის წინასწარ აღჭურვას შესაბამისი ინვენტარითა და სათადარიგო ნაწილებით" },
-      { title: "დაბალი ხარჯები", text: "მდგომარეობაზე დაფუძნებული მოვლა ამცირებს ძვირადღირებულ, გადაუდებელ შეკეთებებს." },
+      { title: "მინიმალური დანახარჯი", text: "მდგომარეობაზე დაფუძნებული მოვლა ამცირებს ძვირადღირებულ, გადაუდებელ შეკეთებებს." },
       { title: "მგზავრთა უსაფრთხოება", text: "უწყვეტი მონიტორინგი ავლენს არანორმალურ პირობებს დროულად." },
-      { title: "მოწყობილობის ხანგრძლივობა", text: "ადრეული ჩარევა ამცირებს კრიტიკული კომპონენტების ცვეთას." },
+      { title: "ექსპლუატაციის ხანგრძლივობა", text: "დროული ჩარევა ამცირებს კრიტიკული კომპონენტების ცვეთას." },
       { title: "სრული გამჭვირვალობა", text: "მესაკუთრეებს გააჩნიათ სრული სურათი ლიფტების მდგომარეობასა და ისტორიაზე." },
-      { title: "მომავლისთვის მზა ტექნოლოგია", text: "AI, IoT და ღრუბლოვანი გამოთვლები ერთიან ეკოსისტემაში — თქვენი შენობის ხანგრძლივი საიმედოობისთვის." },
+      { title: "ინოვაციური ტექნოლოგია", text: "AI, IoT და ღრუბლოვანი გამოთვლები ერთიან ეკოსისტემაში — თქვენი შენობის ხანგრძლივი საიმედოობისთვის." },
     ] satisfies Item[],
     cta: {
       title: "გაინტერესებთ Z-Care თქვენი შენობისთვის?",
@@ -155,7 +156,9 @@ export default function ZCare() {
           </div>
           <div className="flex flex-col items-start gap-6 lg:items-end">
             <span className="font-serif text-[88px] leading-none text-white/90 sm:text-[120px]">
-              Z<span className="text-[#d1a15e]">-</span>Care
+              Z
+              <LogoMark className="mx-[0.07em] mb-[0.06em] inline-block h-[0.66em] w-auto align-baseline text-[#d1a15e]" />
+              Care
             </span>
             <Pulse />
           </div>

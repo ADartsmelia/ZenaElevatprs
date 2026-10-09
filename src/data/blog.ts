@@ -62,6 +62,7 @@ export const posts: Post[] = [
       ka: "სამი შეთავაზება, ქაღალდზე თითქმის იდენტური. აი, რას არ გეუბნებათ ფასის ეტიკეტი.",
     },
     media: { en: "elevator cabin interior · brushed steel + glass", ka: "ლიფტის კაბინის ინტერიერი · უჟანგავი ფოლადი და მინა" },
+    image: "/images/blog/cheapest-elevator-costs-most.webp",
     body: {
       en: [
         { type: "p", text: "You've spent months on the plans. You've negotiated every line item. And now you're staring at three elevator proposals, wondering: are they really that different?" },
@@ -117,6 +118,7 @@ export const posts: Post[] = [
       ka: "ლიფტის პროექტებში საქართველოში ერთი და იგივე შვიდი შეცდომა მეორდება. აი, როგორ აიცილოთ თავიდან თითოეული.",
     },
     media: { en: "shaft drawings on a site table", ka: "შახტის ნახაზები სამშენებლო მაგიდაზე" },
+    image: "/images/blog/seven-elevator-mistakes.webp",
     body: {
       en: [
         { type: "p", text: "Nobody plans to make an expensive mistake." },
@@ -190,6 +192,7 @@ export const posts: Post[] = [
       ka: "ვინც შენობის გაცნობამდე ზუსტ ფასს გეუბნებათ, ვარაუდობს. აი, რა განსაზღვრავს რეალურ ღირებულებას.",
     },
     media: { en: "installation team in a shaft", ka: "სამონტაჟო გუნდი შახტაში" },
+    image: "/images/blog/elevator-installation-cost-georgia.webp",
     body: {
       en: [
         { type: "p", text: "This is the first question almost every developer asks. And quite rightly." },
@@ -243,6 +246,7 @@ export const posts: Post[] = [
       ka: "სვლა უხეშდება, ხარჯები იზრდება. ჩანაცვლება თუ მოდერნიზაცია — პასუხი იშვიათად არის აშკარა.",
     },
     media: { en: "control panel and drive", ka: "მართვის პანელი და ამძრავი" },
+    image: "/images/blog/new-elevator-or-modernization.webp",
     body: {
       en: [
         { type: "p", text: "Every building reaches the moment when its elevator clearly starts to show its age." },

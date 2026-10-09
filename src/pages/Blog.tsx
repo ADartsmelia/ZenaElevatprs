@@ -3,6 +3,7 @@ import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
 import Media from "../components/ui/Media"
 import { LocLink, useLang, type L } from "../i18n"
+import { useCommon } from "../i18n/useCommon"
 import { usePageMeta } from "../lib/seo"
 import { allLabel, categoryLabels, formatPostMeta, posts, type Post } from "../data/blog"
 
@@ -29,6 +30,7 @@ type Filter = "all" | Post["category"]
 
 export default function Blog() {
   const lang = useLang()
+  const c = useCommon()
   const t = copy[lang]
   usePageMeta({ title: t.metaTitle, description: t.metaDesc })
 
@@ -66,25 +68,38 @@ export default function Blog() {
 
       <section className="bg-surface py-14 lg:py-20">
         <Container>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {/* One article per row: wide enough for long (especially Georgian) titles */}
+          <ul className="space-y-6">
             {filtered.map((post) => (
-              <LocLink key={post.slug} to={`/blog/${post.slug}`} className="group flex flex-col border border-line bg-card">
-                <Media src={post.image} label={post.media[lang]} className="aspect-[16/10] w-full" />
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="font-mono text-[10.5px] tracking-[0.14em] text-accent-text uppercase">
-                    {categoryLabels[post.category][lang]}
-                  </p>
-                  <h2 className="mt-3 text-[23px] leading-[1.2] text-ink group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">
-                    {post.title[lang]}
-                  </h2>
-                  <p className="mt-3 flex-1 text-[14px] leading-[1.7] text-muted">{post.excerpt[lang]}</p>
-                  <p className="mt-5 font-mono text-[10.5px] tracking-[0.12em] text-muted/80">
-                    {formatPostMeta(post, lang)}
-                  </p>
-                </div>
-              </LocLink>
+              <li key={post.slug}>
+                <LocLink
+                  to={`/blog/${post.slug}`}
+                  className="group grid border border-line bg-card md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+                >
+                  <Media
+                    src={post.image}
+                    label={post.media[lang]}
+                    className="aspect-[16/10] w-full md:aspect-auto md:h-full md:min-h-[240px]"
+                  />
+                  <div className="flex flex-col justify-center p-6 md:p-9">
+                    <p className="font-mono text-[10.5px] tracking-[0.14em] text-accent-text uppercase">
+                      {categoryLabels[post.category][lang]}
+                    </p>
+                    <h3 className="mt-3 text-[25px] leading-[1.22] text-ink sm:text-[29px]">{post.title[lang]}</h3>
+                    <p className="mt-4 max-w-2xl text-[15px] leading-[1.75] text-muted">{post.excerpt[lang]}</p>
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                      <p className="font-mono text-[10.5px] tracking-[0.12em] text-muted/80">
+                        {formatPostMeta(post, lang)}
+                      </p>
+                      <span className="text-[13.5px] font-medium text-ink underline decoration-gold underline-offset-[6px] transition-colors group-hover:decoration-2">
+                        {c.cta.readArticle} →
+                      </span>
+                    </div>
+                  </div>
+                </LocLink>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
     </>
