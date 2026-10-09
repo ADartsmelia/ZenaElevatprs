@@ -36,6 +36,8 @@ export interface ProductCategory {
   image?: string
   /** Where the technical content came from, shown on the detail page. */
   source?: L<string>
+  /** "pdf": this product's catalogue is the downloadable PDF (site.catalogue) instead of the SJEC website. */
+  catalogue?: "pdf"
 }
 
 const spec = {
@@ -223,6 +225,7 @@ export const categories: ProductCategory[] = [
       { label: { en: "Controller noise", ka: "კონტროლერის ხმაური" }, value: { en: "below 40 dB (XCR-2000)", ka: "40 დბ-ზე დაბლა (XCR-2000)" } },
     ],
     media: { en: "V300 CUBE home lift · concealed controller", ka: "V300 CUBE საოჯახო ლიფტი · დამალული კონტროლერი" },
+    catalogue: "pdf",
     source: {
       en: "Technical details from the SJEC V300 / CUBE brochure. Villa lift limited to single-family use.",
       ka: "ტექნიკური დეტალები SJEC-ის V300 / CUBE ბროშურიდან. საოჯახო ლიფტი განკუთვნილია მხოლოდ ერთი ოჯახის გამოსაყენებლად.",

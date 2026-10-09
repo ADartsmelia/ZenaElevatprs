@@ -27,8 +27,7 @@ const copy = {
     catalogue: {
       eyebrow: "OFFICIAL SJEC CATALOGUE",
       title: "Official SJEC Catalogue",
-      text: "Browse the complete range in SJEC's official catalogue. Scan the code to open it on your phone.",
-      scan: "Scan to open",
+      text: "Download SJEC's official catalogue as a PDF. Scan the code to get it on your phone.",
     },
     cta: {
       title: "Not Sure Which Solution Fits Your Building?",
@@ -36,10 +35,10 @@ const copy = {
     },
   },
   ka: {
-    metaTitle: "პროდუქცია — ლიფტები, ესკალატორები და მოძრავი ბილიკები",
+    metaTitle: "პროდუქტები — ლიფტები, ესკალატორები და მოძრავი ბილიკები",
     metaDesc:
       "სამგზავრო, პანორამული, სამედიცინო, სატვირთო, საოჯახო და ავტომობილის ლიფტები, ესკალატორები, მოძრავი ბილიკები და ეტლების კონვეიერები — SJEC-ის ტექნოლოგია, რომელსაც ZENA საქართველოში აწვდის და ემსახურება.",
-    eyebrow: "პროდუქცია",
+    eyebrow: "პროდუქტები",
     title: "ვერტიკალური ტრანსპორტის გადაწყვეტილებები ნებისმიერი ტიპის შენობისთვის",
     text: "გაეცანით ლიფტების, ესკალატორებისა და მოძრავი ბილიკების გადაწყვეტილებებს საცხოვრებელი, კომერციული, სამედიცინო, სამრეწველო და საზოგადოებრივი შენობებისთვის.",
     elevators: "ლიფტები",
@@ -50,8 +49,7 @@ const copy = {
     catalogue: {
       eyebrow: "SJEC-ის ოფიციალური კატალოგი",
       title: "SJEC-ის ოფიციალური კატალოგი",
-      text: "გაეცანით სრულ ასორტიმენტს SJEC-ის ოფიციალურ კატალოგში. დაასკანირეთ კოდი ტელეფონზე გასახსნელად.",
-      scan: "დაასკანირეთ გასახსნელად",
+      text: "ჩამოტვირთეთ SJEC-ის ოფიციალური კატალოგი PDF ფორმატში. დაასკანირეთ კოდი, რომ ტელეფონზეც მიიღოთ.",
     },
     cta: {
       title: "არ იცით, რომელი გადაწყვეტილება შეესაბამება თქვენს შენობას?",
@@ -65,6 +63,8 @@ export default function Products() {
   const c = useCommon()
   const t = copy[lang]
   usePageMeta({ title: t.metaTitle, description: t.metaDesc })
+  // Absolute address so the QR code works from any phone, on whatever domain the site is served from.
+  const catalogueUrl = new URL(site.catalogue.path, window.location.origin).href
 
   return (
     <>
@@ -117,24 +117,25 @@ export default function Products() {
             <h2 className="mt-3 text-[32px] leading-[1.12] text-ink sm:text-[40px]">{t.catalogue.title}</h2>
             <p className="mt-4 max-w-xl text-[16.5px] leading-[1.8] text-muted">{t.catalogue.text}</p>
             <div className="mt-7">
-              <Button href={site.sjecCatalogueUrl} external>
-                {c.cta.viewCatalogue} ↗
+              <Button href={site.catalogue.path} download={site.catalogue.fileName}>
+                {c.cta.downloadOfficial} ↓
               </Button>
+              <p className="mt-3 font-mono text-[11px] tracking-[0.12em] text-muted">{site.catalogue.sizeLabel}</p>
             </div>
           </div>
           <figure className="flex flex-col items-center gap-3">
             <div className="bg-white p-3.5 shadow-sm ring-1 ring-black/10">
               <QRCodeSVG
-                value={site.sjecCatalogueUrl}
+                value={catalogueUrl}
                 size={132}
                 level="M"
                 bgColor="#ffffff"
                 fgColor="#1c1713"
-                title="SJEC catalogue"
+                title="SJEC catalogue (PDF)"
               />
             </div>
             <figcaption className="font-mono text-[10.5px] tracking-[0.14em] text-muted uppercase">
-              {t.catalogue.scan}
+              {c.cta.scanToDownload}
             </figcaption>
           </figure>
         </Container>

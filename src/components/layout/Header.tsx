@@ -17,8 +17,8 @@ export default function Header() {
     { to: "/products", label: c.nav.products },
     { to: "/services", label: c.nav.services },
     { to: "/z-care", label: c.nav.zcare },
-    { to: "/blog", label: c.nav.blog },
     { to: "/about", label: c.nav.about },
+    { to: "/blog", label: c.nav.blog },
     { to: "/contact", label: c.nav.contact },
   ]
 

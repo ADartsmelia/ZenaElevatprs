@@ -8,19 +8,23 @@ export default function Media({
   label,
   className = "",
   dark = false,
+  priority = false,
 }: {
   src?: string
   alt?: string
   label: string
   className?: string
   dark?: boolean
+  /** Above-the-fold image: load immediately instead of lazily. */
+  priority?: boolean
 }) {
   if (src) {
     return (
       <img
         src={src}
         alt={alt ?? label}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        {...(priority ? { fetchPriority: "high" as const } : {})}
         decoding="async"
         className={`object-cover ${className}`}
       />

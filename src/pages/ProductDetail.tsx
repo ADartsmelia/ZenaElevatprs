@@ -22,18 +22,20 @@ const copy = {
     facts: "At a glance",
     models: "Specified models",
     catalogue: "See the full technical details in SJEC's official catalogue.",
+    cataloguePdf: "Download the SJEC V300 / CUBE brochure with the full technical details.",
     scan: "Scan to open",
     more: "Other solutions",
     ctaTitle: "Interested in this solution?",
     ctaText: "Tell us about your building and we will recommend the right configuration.",
   },
   ka: {
-    crumb: "პროდუქცია",
+    crumb: "პროდუქტები",
     highlights: "მთავარი მახასიათებლები",
     applications: "გამოყენების სფერო",
     facts: "მოკლედ",
     models: "კონკრეტული მოდელები",
     catalogue: "სრული ტექნიკური დეტალები იხილეთ SJEC-ის ოფიციალურ კატალოგში.",
+    cataloguePdf: "ჩამოტვირთეთ SJEC V300 / CUBE ბროშურა სრული ტექნიკური დეტალებით.",
     scan: "დაასკანირეთ გასახსნელად",
     more: "სხვა გადაწყვეტილებები",
     ctaTitle: "გაინტერესებთ ეს გადაწყვეტილება?",
@@ -56,6 +58,10 @@ export default function ProductDetail() {
 
   if (!cat) return <NotFound />
 
+  const isPdf = cat.catalogue === "pdf"
+  // Absolute address so the QR code works from any phone, on whatever domain the site is served from.
+  const qrValue = isPdf ? new URL(site.catalogue.path, window.location.origin).href : site.sjecCatalogueUrl
+
   const others = categories.filter((x) => x.group === cat.group && x.slug !== cat.slug).slice(0, 3)
 
   return (
@@ -73,9 +79,15 @@ export default function ProductDetail() {
             <p className="mt-5 max-w-xl text-[17px] leading-[1.8] text-muted">{cat.summary[lang]}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button to="/contact">{c.cta.requestQuote}</Button>
-              <Button href={site.sjecCatalogueUrl} external variant="secondary">
-                {c.cta.openCatalogue} ↗
-              </Button>
+              {isPdf ? (
+                <Button href={site.catalogue.path} download={site.catalogue.fileName} variant="secondary">
+                  {c.cta.downloadCatalogue} ↓
+                </Button>
+              ) : (
+                <Button href={site.sjecCatalogueUrl} external variant="secondary">
+                  {c.cta.openCatalogue} ↗
+                </Button>
+              )}
             </div>
           </div>
           <Media src={cat.image} label={cat.media[lang]} className="aspect-[4/3] w-full" />
@@ -128,11 +140,13 @@ export default function ProductDetail() {
 
             <div className="flex items-center gap-5 border border-line bg-card p-6">
               <div className="shrink-0 bg-white p-2.5 ring-1 ring-black/10">
-                <QRCodeSVG value={site.sjecCatalogueUrl} size={84} level="M" bgColor="#ffffff" fgColor="#1c1713" />
+                <QRCodeSVG value={qrValue} size={84} level="M" bgColor="#ffffff" fgColor="#1c1713" />
               </div>
               <div>
-                <p className="text-[13.5px] leading-relaxed text-muted">{t.catalogue}</p>
-                <p className="mt-2 font-mono text-[10px] tracking-[0.14em] text-accent-text uppercase">{t.scan}</p>
+                <p className="text-[13.5px] leading-relaxed text-muted">{isPdf ? t.cataloguePdf : t.catalogue}</p>
+                <p className="mt-2 font-mono text-[10px] tracking-[0.14em] text-accent-text uppercase">
+                  {isPdf ? c.cta.scanToDownload : t.scan}
+                </p>
               </div>
             </div>
           </aside>

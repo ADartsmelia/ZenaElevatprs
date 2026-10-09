@@ -9,6 +9,8 @@ interface ButtonProps {
   href?: string
   /** Open `href` in a new tab. */
   external?: boolean
+  /** Download `href` as a file with this name instead of navigating to it. */
+  download?: string
   onClick?: () => void
   variant?: Variant
   type?: "button" | "submit"
@@ -30,6 +32,7 @@ export default function Button({
   to,
   href,
   external,
+  download,
   onClick,
   variant = "primary",
   type = "button",
@@ -53,6 +56,7 @@ export default function Button({
         href={href}
         onClick={onClick}
         className={classes}
+        {...(download ? { download } : {})}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {children}

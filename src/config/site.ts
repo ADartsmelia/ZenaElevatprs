@@ -26,6 +26,12 @@ export const site = {
 
   /** Replace with the direct link to the official SJEC catalogue / e-brochure. */
   sjecCatalogueUrl: "https://www.sjec.com.cn",
+  /** The catalogue PDF visitors download (public/downloads/). Swap the file to update it. */
+  catalogue: {
+    path: "/downloads/SJEC-V300-Catalogue.pdf",
+    fileName: "SJEC-V300-Catalogue.pdf",
+    sizeLabel: "PDF · 47 MB",
+  },
   sjecCountries: "130+",
 
   /**

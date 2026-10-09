@@ -12,7 +12,7 @@ import { useCommon } from "../i18n/useCommon"
 import { usePageMeta } from "../lib/seo"
 import { site } from "../config/site"
 import { getCategory } from "../data/products"
-import { getPost, recentPosts, categoryLabels } from "../data/blog"
+import { categoryLabels, formatPostMeta, recentPosts } from "../data/blog"
 
 const copy = {
   en: {
@@ -20,12 +20,13 @@ const copy = {
     metaDesc:
       "Authorized SJEC partner in Georgia. Elevator and escalator solutions for residential, commercial and public buildings — consultation, supply, installation, modernization and long-term service.",
     hero: {
-      eyebrow: "AUTHORIZED SJEC PARTNER · GEORGIA",
+      eyebrow: "SJEC PARTNER · GEORGIA",
       line1: "You're not buying an elevator.",
       line2: "You're choosing a",
       accent: "partner.",
-      text: "We provide elevator and escalator solutions for residential, commercial and public buildings — from technical consultation and supply to installation, modernization and long-term service.",
-      benefits: ["International Technology", "Professional Installation", "Tailored Solutions", "Local Support"],
+      text: "We offer elevators and escalators for residential, commercial and public buildings — from technical consultation, procurement and supply to installation, modernization and long-term service.",
+      benefits: ["International Technology", "Procurement", "Professional Installation", "Tailored Solutions", "Local Support"],
+      alt: "Architectural sketch of an atrium with an escalator and a glass elevator",
       card: "Countries with SJEC installations",
       media: "escalator · airport atrium · long-exposure motion",
     },
@@ -37,8 +38,8 @@ const copy = {
     },
     products: {
       eyebrow: "OFFICIAL SJEC COLLECTIONS",
-      title: "Our Product Solutions",
-      sub: "Elevator and escalator systems selected for residential, commercial, healthcare, hospitality and public infrastructure projects.",
+      title: "Our Products",
+      sub: "Elevators and escalators for residential, commercial, healthcare, hospitality and public infrastructure projects.",
       portfolio: "Explore Our Product Portfolio",
       portfolioSub: "Official SJEC Collections",
       escalators: {
@@ -49,69 +50,58 @@ const copy = {
     },
     services: {
       eyebrow: "WHAT WE DO",
-      title: "Services Across the Full Lifecycle",
-      sub: "From early-stage planning and equipment selection to installation, maintenance and modernization, ZENA supports every stage of the vertical transportation lifecycle.",
+      title: "Our Services",
+      sub: "ZENA supports every stage of the vertical transportation lifecycle.",
       items: [
-        { title: "Technical Consultation & Planning", text: "Building analysis, traffic requirements and shaft coordination to select the right solution." },
-        { title: "Supply & Installation", text: "Equipment supply, installation, testing and commissioning on genuine SJEC technology." },
-        { title: "Maintenance & Repair", text: "Preventive maintenance, diagnostics and repair, with 24/7 emergency support." },
-        { title: "Modernization", text: "Upgrading controls, drives, doors and cabins for safety, efficiency and comfort." },
+        { title: "Technical Consultation & Planning", text: "Full passenger-traffic analysis and correct shaft planning." },
+        { title: "Procurement & Installation", text: "Equipment procurement, supply, installation, handover and commissioning." },
+        { title: "Maintenance & Repair", text: "Preventive inspection, diagnostics and repair, with 24/7 emergency support." },
+        { title: "Modernization", text: "Replacing outdated systems with new ones, for safety, efficiency and comfort." },
       ],
     },
     zcare: {
       eyebrow: "Z-CARE · REMOTE MONITORING",
       title: "We spot the risk before it breaks.",
-      text: "AI, IoT and 24/7 remote monitoring protect your elevators' reliability, safety and value — available as an upgrade to our post-warranty maintenance program.",
+      text: "AI, IoT and 24/7 remote monitoring protect the reliability and safety of your elevators — available as an upgrade to our post-warranty maintenance program.",
       items: [
-        { title: "Maximum uptime", text: "Minimizing unplanned downtime for reliable operation." },
-        { title: "Early forecasting", text: "AI flags a developing issue before it becomes a failure." },
-        { title: "Faster response", text: "Remote diagnostics let engineers arrive with the right tools and parts." },
-        { title: "Full transparency", text: "Owners get a complete picture of elevator condition and history." },
+        { title: "Maximum uptime", text: "Minimizing unforeseen faults and ensuring reliable operation." },
+        { title: "Early forecasting", text: "AI predicts a problem before it becomes a failure." },
+        { title: "Faster response", text: "Remote diagnostics let us equip technical staff in advance with the right tools and spare parts." },
+        { title: "Full transparency", text: "Owners get a complete picture of the elevators' condition and history." },
       ],
     },
     why: {
       eyebrow: "WHY ZENA",
       title: "Who We Are and What Sets ZENA Apart",
       paras: [
-        "We believe that an elevator is not just a technical product — it is an essential part of a building that serves people every day. That is why we approach every project with special attention, responsibility and care.",
-        "There are many excellent elevator brands known globally, and we respect them greatly. However, ZENA's main advantage is our local team, which knows the Georgian market and customer needs well and makes decisions quickly.",
-        `Our technology partner is SJEC — one of the world's leading elevator manufacturers, whose products are TÜV-certified and present in ${site.sjecCountries} countries. You receive international-standard technology and quality in the local market, supported by a team that is always available and takes full responsibility for its work.`,
+        "An elevator is not just a technical product — it is an essential part of a building that serves people every day. That is why we approach every project with special attention, responsibility and care.",
+        "There are many excellent elevator brands known globally. However, ZENA's main advantage is our local team, which knows the Georgian market and customer needs well and makes decisions quickly.",
+        `We work with international technology partners, including SJEC — one of the world's leading elevator manufacturers, whose products are TÜV-certified and present in ${site.sjecCountries} countries. You receive international-standard technology and quality in the local market, supported by a team that is always available.`,
       ],
       expectTitle: "What to expect from us",
       expect: [
-        "A professional team in the field of vertical transportation",
+        "A professional team with many years of experience in vertical transportation",
         "Fast and effective communication",
         "Competitive and transparent pricing",
         "Flexible timelines for delivery and installation",
-        "A long-term partnership — our relationship doesn't end with installation, it begins there",
+        "A long-term partnership — our relationship doesn't end with installation, it starts right there",
       ],
       pillars: [
-        { title: "Project-specific engineering", text: "Every recommendation starts with your building — shaft, traffic and use — not with a price list." },
-        { title: "Transparent commercial proposals", text: "Itemized, clear offers, so you know what you are paying for from the first page." },
-        { title: "International technology", text: "Equipment from SJEC, a global manufacturer with a worldwide installed base." },
-        { title: "Local coordination and support", text: "A Georgian team that understands the market and stays with your project after handover." },
-      ],
-    },
-    featured: {
-      eyebrow: "FEATURED",
-      title: "Featured Product Solutions",
-      cta: "Explore All Products",
-      items: [
-        { slug: "home-villa-elevators", tag: "Home & Villa", name: "V300 CUBE Home Lift", text: "Battery-drive home lift with an ultra-compact controller that can be fully concealed." },
-        { slug: "passenger-elevators", tag: "Passenger", name: "MRL Passenger Elevators", text: "Machine-room-less lifts for residential and commercial buildings, from 3 to 33 floors." },
-        { slug: "commercial-escalators", tag: "Escalators", name: "FES Escalator", text: "Silent, comfortable escalators for continuous public traffic in malls, hotels and offices." },
+        { title: "Project-specific engineering", text: "Every recommendation starts with your building — shaft, passenger traffic and purpose — not with pricing." },
+        { title: "Transparent commercial proposals", text: "Transparent commercial policy." },
+        { title: "International technology", text: "Products from our international manufacturing partners." },
+        { title: "Local team and constant support", text: "A team that knows the local market well and stays with you after project handover." },
       ],
     },
     blog: {
       eyebrow: "FROM THE BLOG",
-      mistakes: ["Choosing on price alone", "Misjudging the building's load", "Choosing the wrong capacity"],
-      more: "+ 4 more inside the article",
-      moreTitle: "More from the journal",
+      title: "From Our Blog",
+      all: "All articles",
     },
     contact: {
       eyebrow: "REQUEST A QUOTE",
       title: "Let's discuss your project.",
-      text: "Tell us about your building, project stage and technical requirements. Our team will review the information and contact you to discuss the most suitable solution.",
+      text: "Tell us about your building, project stage and technical requirements. Our team will review the information and contact you shortly to find the most suitable vertical transportation solution.",
       tel: "TEL",
       mail: "EML",
       loc: "LOC",
@@ -122,12 +112,13 @@ const copy = {
     metaDesc:
       "SJEC-ის ავტორიზებული პარტნიორი საქართველოში. ლიფტებისა და ესკალატორების გადაწყვეტილებები საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის — კონსულტაცია, მიწოდება, მონტაჟი, მოდერნიზაცია და გრძელვადიანი სერვისი.",
     hero: {
-      eyebrow: "SJEC-ის ავტორიზებული პარტნიორი · საქართველო",
+      eyebrow: "SJEC-ის პარტნიორი · საქართველო",
       line1: "თქვენ ლიფტს არ ყიდულობთ.",
       line2: "თქვენ ირჩევთ",
       accent: "პარტნიორს.",
-      text: "ვთავაზობთ ლიფტებისა და ესკალატორების გადაწყვეტილებებს საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის — ტექნიკური კონსულტაციიდან და მიწოდებიდან მონტაჟის, მოდერნიზაციისა და გრძელვადიანი სერვისის ჩათვლით.",
-      benefits: ["საერთაშორისო ტექნოლოგია", "პროფესიონალური მონტაჟი", "ინდივიდუალური გადაწყვეტილებები", "ადგილობრივი მხარდაჭერა"],
+      text: "გთავაზობთ ლიფტებისა და ესკალატორებს საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის - ტექნიკური კონსულტაციიდან, შესყიდვიდან და მიწოდებიდან მონტაჟის, მოდერნიზაციისა და გრძელვადიანი სერვისის ჩათვლით.",
+      benefits: ["საერთაშორისო ტექნოლოგია", "შესყიდვა", "პროფესიონალური მონტაჟი", "ინდივიდუალური გადაწყვეტილებები", "ადგილობრივი მხარდაჭერა"],
+      alt: "არქიტექტურული ესკიზი: ატრიუმი ესკალატორითა და მინის ლიფტით",
       card: "ქვეყანა SJEC-ის სისტემებით",
       media: "ესკალატორი · აეროპორტის ატრიუმი",
     },
@@ -139,9 +130,9 @@ const copy = {
     },
     products: {
       eyebrow: "SJEC-ის ოფიციალური კოლექციები",
-      title: "ჩვენი პროდუქციის გადაწყვეტილებები",
-      sub: "ლიფტებისა და ესკალატორების სისტემები საცხოვრებელი, კომერციული, სამედიცინო, სასტუმრო და საზოგადოებრივი ინფრასტრუქტურის პროექტებისთვის.",
-      portfolio: "გაეცანით ჩვენს პროდუქციის პორტფოლიოს",
+      title: "ჩვენი პროდუქტები",
+      sub: "ლიფტების და ესკალატორები: საცხოვრებელი, კომერციული, სამედიცინო, სასტუმრო და საზოგადოებრივი ინფრასტრუქტურის პროექტებისთვის.",
+      portfolio: "გაეცანით ჩვენი პროდუქტის პორტფოლიოს",
       portfolioSub: "SJEC-ის ოფიციალური კოლექციები",
       escalators: {
         name: "ესკალატორები და მოძრავი ბილიკები",
@@ -151,69 +142,58 @@ const copy = {
     },
     services: {
       eyebrow: "რას ვაკეთებთ",
-      title: "სერვისები სასიცოცხლო ციკლის ყველა ეტაპზე",
-      sub: "ადრეული დაგეგმვიდან და აღჭურვილობის შერჩევიდან მონტაჟის, მომსახურებისა და მოდერნიზაციის ჩათვლით — ZENA გვერდით გიდგათ ვერტიკალური ტრანსპორტის სასიცოცხლო ციკლის ყველა ეტაპზე.",
+      title: "ჩვენი სერვისები",
+      sub: "ZENA გვერდით გიდგათ ვერტიკალური ტრანსპორტის სასიცოცხლო ციკლის ყველა ეტაპზე.",
       items: [
-        { title: "ტექნიკური კონსულტაცია და დაგეგმვა", text: "შენობის ანალიზი, მგზავრთნაკადის მოთხოვნები და შახტის კოორდინაცია სწორი გადაწყვეტის შესარჩევად." },
-        { title: "მიწოდება და მონტაჟი", text: "აღჭურვილობის მიწოდება, მონტაჟი, გამოცდა და ექსპლუატაციაში გაშვება SJEC-ის ორიგინალ ტექნოლოგიაზე." },
-        { title: "ტექნიკური მომსახურება და შეკეთება", text: "პროფილაქტიკური მომსახურება, დიაგნოსტიკა და შეკეთება, 24/7 გადაუდებელი მხარდაჭერით." },
-        { title: "მოდერნიზაცია", text: "მართვის სისტემების, ამძრავების, კარებისა და კაბინების განახლება უსაფრთხოების, ეფექტურობისა და კომფორტისთვის." },
+        { title: "ტექნიკური კონსულტაცია და დაგეგმვა", text: "მგზავრთნაკადების სრული ანალიზი და შახტის სწორად დაგეგმარება." },
+        { title: "შესყიდვა და მონტაჟი", text: "დანადგარის შესყიდვა, მიწოდება, მონტაჟი, ჩაბარება და ექსპლუატაციაში გაშვება." },
+        { title: "ტექნიკური მომსახურება და შეკეთება", text: "პრევენციული შემოწმება, დიაგნოსტიკა და შეკეთება, 24/7 გადაუდებელი მხარდაჭერით." },
+        { title: "მოდერნიზაცია", text: "ძველი სისტემების ახლით ჩანაცვლება, უსაფრთხოების, ეფექტურობისა და კომფორტისთვის." },
       ],
     },
     zcare: {
       eyebrow: "Z-CARE · დისტანციური მონიტორინგი",
       title: "ვხედავთ რისკს დაზიანებამდე.",
-      text: "ხელოვნური ინტელექტი, IoT და 24/7 დისტანციური მონიტორინგი იცავს თქვენი ლიფტების საიმედოობას, უსაფრთხოებასა და ღირებულებას — ხელმისაწვდომია, როგორც განახლება ჩვენს საგარანტიო-შემდგომ მოვლის პროგრამაში.",
+      text: "ხელოვნური ინტელექტი, IoT და 24/7 დისტანციური მონიტორინგი იცავს თქვენი ლიფტების საიმედოობასა და უსაფრთხოებას — ხელმისაწვდომია, როგორც განახლება ჩვენს საგარანტიო-შემდგომ მოვლის პროგრამაში.",
       items: [
-        { title: "მაქსიმალური ხელმისაწვდომობა", text: "გაუთვალისწინებელი გაჩერებების მინიმუმამდე დაყვანა და საიმედო ექსპლუატაცია." },
-        { title: "ადრეული პროგნოზირება", text: "AI ავლენს განვითარებად პრობლემას მანამ, სანამ ის დაზიანებად იქცევა." },
-        { title: "სწრაფი რეაგირება", text: "დისტანციური დიაგნოსტიკის წყალობით ინჟინრები მიდიან საჭირო ინსტრუმენტითა და ნაწილებით." },
-        { title: "სრული გამჭვირვალობა", text: "შენობის მფლობელს გააჩნია სრული სურათი ლიფტების მდგომარეობასა და ისტორიაზე." },
+        { title: "მაქსიმალური ხელმისაწვდომობა", text: "გაუთვალისწინებელი ხარვეზების მინიმუმამდე დაყვანა და საიმედო ექსპლუატაცია." },
+        { title: "ადრეული პროგნოზირება", text: "AI პროგნოზირებს პრობლემას დაზიანებამდე" },
+        { title: "სწრაფი რეაგირება", text: "დისტანციური დიაგნოსტიკის გამოყენება უზრუნველყოფს ტექნიკური პერსონალის წინასწარ აღჭურვას შესაბამისი ინვენტარითა და სათადარიგო ნაწილებით" },
+        { title: "სრული გამჭვირვალობა", text: "მესაკუთრეებს გააჩნიათ სრული სურათი ლიფტების მდგომარეობასა და ისტორიაზე." },
       ],
     },
     why: {
       eyebrow: "რატომ ZENA",
       title: "ვინ ვართ და რა გამოარჩევს ZENA-ს ბაზარზე",
       paras: [
-        "ჩვენ გვჯერა, რომ ლიფტი მხოლოდ ტექნიკური პროდუქტი არ არის — ის შენობის მნიშვნელოვანი ნაწილია, რომელიც ყოველდღიურად ემსახურება ადამიანებს. სწორედ ამიტომ, თითოეულ პროექტს განსაკუთრებული ყურადღებით, პასუხისმგებლობითა და ზრუნვით ვუდგებით.",
-        "მსოფლიოში ცნობილია არაერთი შესანიშნავი ლიფტის ბრენდი, ჩვენ მათ დიდ პატივს ვცემთ. თუმცა ZENA-ს მთავარი უპირატესობა არის ადგილობრივი გუნდი, რომელიც კარგად იცნობს ქართულ ბაზარს, მომხმარებლის საჭიროებებს და გადაწყვეტილებებს სწრაფად იღებს.",
-        `ჩვენი ტექნოლოგიური პარტნიორია SJEC — მსოფლიოში ლიფტების ერთ-ერთი წამყვანი მწარმოებელი, რომლის პროდუქცია TÜV-ით არის სერტიფიცირებული და წარმოდგენილია ${site.sjecCountries} ქვეყანაში. თქვენ იღებთ საერთაშორისო დონის ტექნოლოგიასა და ხარისხს ადგილობრივ ბაზარზე, იმ გუნდის მხარდაჭერით, რომელიც ყოველთვის ხელმისაწვდომია და პასუხისმგებლობას სრულად იღებს საკუთარ საქმეზე.`,
+        "ლიფტი მხოლოდ ტექნიკური პროდუქტი არ არის - ის შენობის მნიშვნელოვანი ნაწილია, რომელიც ყოველდღიურად ემსახურება ადამიანებს. სწორედ ამიტომ, თითოეულ პროექტს განსაკუთრებული ყურადღებით, პასუხისმგებლობითა და ზრუნვით ვუდგებით.",
+        "მსოფლიოში ცნობილია არაერთი შესანიშნავი ლიფტის ბრენდი. თუმცა ZENA-ს მთავარი უპირატესობა არის ადგილობრივი გუნდი, რომელიც კარგად იცნობს ქართულ ბაზარს, მომხმარებლის საჭიროებებს და გადაწყვეტილებებს სწრაფად იღებს.",
+        `ჩვენ გვყავს საერთაშორისო ტექნოლოგიური პარტნიორები, მათ შორის SJEC - მსოფლიოში ლიფტების ერთ-ერთი წამყვანი მწარმოებელი, რომლის პროდუქტი TÜV-ით არის სერტიფიცირებული და წარმოდგენილია ${site.sjecCountries} ქვეყანაში. თქვენ იღებთ საერთაშორისო დონის ტექნოლოგიასა და ხარისხს ადგილობრივ ბაზარზე, იმ გუნდის მხარდაჭერით, რომელიც ყოველთვის ხელმისაწვდომია.`,
       ],
       expectTitle: "რას ელოდოთ ჩვენგან",
       expect: [
-        "პროფესიონალ გუნდს ვერტიკალური ტრანსპორტის სფეროში",
+        "მრავალწლიანი გამოცდილების მქონე პროფესიონალ გუნდს ვერტიკალური ტრანსპორტირების სფეროში",
         "სწრაფ და ეფექტურ კომუნიკაციას",
         "კონკურენტულ და გამჭვირვალე ფასებს",
         "მიწოდებისა და ინსტალაციის მოქნილ ვადებს",
-        "გრძელვადიან პარტნიორობას — ჩვენი ურთიერთობა ლიფტის მონტაჟით არ სრულდება, პირიქით, იქიდან იწყება",
+        "გრძელვადიან პარტნიორობას - ჩვენი ურთიერთობა ლიფტის მონტაჟით არ სრულდება, პირიქით, სწორედ აქედან იწყება",
       ],
       pillars: [
-        { title: "პროექტზე მორგებული ინჟინერია", text: "ყოველი რეკომენდაცია იწყება თქვენი შენობით — შახტით, მგზავრთნაკადით და დანიშნულებით და არა ფასების სიით." },
-        { title: "გამჭვირვალე კომერციული წინადადებები", text: "დეტალურად გაწერილი, გასაგები შეთავაზებები, რომ პირველივე გვერდიდან იცოდეთ, რაში იხდით." },
-        { title: "საერთაშორისო ტექნოლოგია", text: "აღჭურვილობა SJEC-ისგან — გლობალური მწარმოებლისგან მსოფლიო მასშტაბის გამოცდილებით." },
-        { title: "ადგილობრივი კოორდინაცია და მხარდაჭერა", text: "ქართული გუნდი, რომელიც ბაზარს იცნობს და პროექტის ჩაბარების შემდეგაც თქვენს გვერდით რჩება." },
-      ],
-    },
-    featured: {
-      eyebrow: "გამორჩეული",
-      title: "გამორჩეული პროდუქტის გადაწყვეტილებები",
-      cta: "ყველა პროდუქციის ნახვა",
-      items: [
-        { slug: "home-villa-elevators", tag: "საოჯახო და ვილა", name: "V300 CUBE საოჯახო ლიფტი", text: "აკუმულატორზე მომუშავე საოჯახო ლიფტი ულტრაკომპაქტური მართვის კარადით, რომლის სრულად დამალვაც შესაძლებელია." },
-        { slug: "passenger-elevators", tag: "სამგზავრო", name: "MRL სამგზავრო ლიფტები", text: "მანქანური განყოფილების გარეშე ლიფტები საცხოვრებელი და კომერციული შენობებისთვის, 3-დან 33 სართულამდე." },
-        { slug: "commercial-escalators", tag: "ესკალატორები", name: "FES ესკალატორი", text: "ჩუმი და კომფორტული ესკალატორები სავაჭრო ცენტრების, სასტუმროებისა და ოფისების უწყვეტი ნაკადისთვის." },
+        { title: "პროექტზე მორგებული ინჟინერია", text: "ყოველი რეკომენდაცია იწყება თქვენი შენობით - შახტით, მგზავრთნაკადით, დანიშნულებითა და არა განფასებით." },
+        { title: "გამჭვირვალე კომერციული წინადადებები", text: "გამჭვირვალე კომერციული პოლიტიკა" },
+        { title: "საერთაშორისო ტექნოლოგია", text: "პროდუქტები - ჩვენი პარტნიორი საერთაშორისო მწარმოებლებისგან." },
+        { title: "ადგილობრივი გუნდი და მუდმივი მხარდაჭერა", text: "გუნდი, რომელიც ადგილობრივ ბაზარს კარგად იცნობს და პროექტის ჩაბარების შემდეგაც თქვენს გვერდით რჩება." },
       ],
     },
     blog: {
       eyebrow: "ბლოგიდან",
-      mistakes: ["არჩევანი მხოლოდ ფასის მიხედვით", "შენობის დატვირთვის არასწორი შეფასება", "არასწორი ტვირთამწეობის არჩევა"],
-      more: "+ კიდევ 4 სტატიაში",
-      moreTitle: "კიდევ ჩვენი ბლოგიდან",
+      title: "ჩვენი ბლოგიდან",
+      all: "ყველა სტატია",
     },
     contact: {
       eyebrow: "შეთავაზების მოთხოვნა",
       title: "განვიხილოთ თქვენი პროექტი.",
-      text: "მოგვიყევით თქვენი შენობის, პროექტის ეტაპისა და ტექნიკური მოთხოვნების შესახებ. ჩვენი გუნდი განიხილავს ინფორმაციას და დაგიკავშირდებათ, რათა შეგირჩიოთ ყველაზე შესაფერისი გადაწყვეტა.",
+      text: "მოგვიყევით თქვენი შენობის, პროექტის ეტაპისა და ტექნიკური მოთხოვნების შესახებ. ჩვენი გუნდი განიხილავს ინფორმაციას და მალევე დაგიკავშირდებათ, რათა შეგირჩიოთ ყველაზე შესაფერისი ვერტიკალური გადაწყვეტა.",
       tel: "ტელ.",
       mail: "ელფ.",
       loc: "ადგ.",
@@ -237,8 +217,7 @@ export default function Home() {
     .map((slug) => getCategory(slug))
     .filter((x) => x !== undefined)
 
-  const featuredPost = getPost("seven-elevator-mistakes")!
-  const otherPosts = recentPosts.filter((p) => p.slug !== featuredPost.slug).slice(0, 3)
+  const latestPosts = recentPosts.slice(0, 3)
 
   return (
     <>
@@ -271,7 +250,13 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <Media label={t.hero.media} className="aspect-[4/5] w-full sm:aspect-square" />
+            <Media
+              src="/images/hero-sketch.webp"
+              alt={t.hero.alt}
+              label={t.hero.media}
+              priority
+              className="aspect-[4/5] w-full object-[72%_30%] sm:aspect-square"
+            />
             <div className="absolute right-4 bottom-4 left-4 max-w-[260px] bg-night px-6 py-5 text-white shadow-2xl sm:right-auto sm:-left-6 sm:bottom-10">
               <p className="font-serif text-[40px] leading-none">
                 {site.sjecCountries.replace("+", "")}
@@ -450,94 +435,38 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ------------------------------------------------- Featured */}
+      {/* ------------------------------------------------------- Blog */}
       <section className="bg-alt py-20 lg:py-24">
         <Container>
           <SectionHead
-            eyebrow={t.featured.eyebrow}
-            title={t.featured.title}
-            aside={<ArrowLink to="/products">{t.featured.cta}</ArrowLink>}
+            eyebrow={t.blog.eyebrow}
+            title={t.blog.title}
+            aside={<ArrowLink to="/blog">{t.blog.all}</ArrowLink>}
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {t.featured.items.map((item) => {
-              const cat = getCategory(item.slug)!
-              return (
+          <ul className="mt-12 grid gap-6 md:grid-cols-3">
+            {latestPosts.map((p) => (
+              <li key={p.slug}>
                 <LocLink
-                  key={item.slug}
-                  to={`/products/${item.slug}`}
-                  className="group flex flex-col bg-card"
+                  to={`/blog/${p.slug}`}
+                  className="group flex h-full flex-col border border-line bg-card"
                 >
-                  <Media
-                    src={cat.image}
-                    label={cat.media[lang]}
-                    className="aspect-[4/3] w-full transition-opacity group-hover:opacity-90"
-                  />
+                  <Media src={p.image} label={p.media[lang]} className="aspect-[16/10] w-full" />
                   <div className="flex flex-1 flex-col p-6">
                     <p className="font-mono text-[10.5px] tracking-[0.14em] text-accent-text uppercase">
-                      {item.tag}
-                    </p>
-                    <h3 className="mt-2 text-[24px] leading-tight text-ink">{item.name}</h3>
-                    <p className="mt-3 flex-1 text-[14px] leading-[1.7] text-muted">{item.text}</p>
-                  </div>
-                </LocLink>
-              )
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* ------------------------------------------------- Blog highlight */}
-      <section className="bg-night py-20 text-white lg:py-24">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <Eyebrow onDark>
-                {t.blog.eyebrow} · {categoryLabels[featuredPost.category][lang].toUpperCase()}
-              </Eyebrow>
-              <h2 className="mt-4 text-[32px] leading-[1.14] text-white sm:text-[38px]">
-                {featuredPost.title[lang]}
-              </h2>
-              <p className="mt-5 max-w-md text-[16px] leading-[1.8] text-white/65">
-                {featuredPost.excerpt[lang]}
-              </p>
-              <ArrowLink to={`/blog/${featuredPost.slug}`} onDark className="mt-7">
-                {c.cta.readArticle}
-              </ArrowLink>
-            </div>
-
-            <div className="border border-white/15 p-7">
-              {t.blog.mistakes.map((m, i) => (
-                <div key={m} className="flex gap-5 border-b border-white/10 py-4 first:pt-0">
-                  <span className="font-mono text-[11px] text-[#d1a15e]">0{i + 1}</span>
-                  <p className="text-[14.5px] text-white/85">{m}</p>
-                </div>
-              ))}
-              <div className="flex gap-5 pt-4">
-                <span className="font-mono text-[11px] text-white/30">+</span>
-                <p className="text-[14.5px] text-white/45">{t.blog.more}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-14 border-t border-white/10 pt-8">
-            <p className="font-mono text-[10.5px] tracking-[0.18em] text-white/40 uppercase">
-              {t.blog.moreTitle}
-            </p>
-            <ul className="mt-5 grid gap-5 md:grid-cols-3">
-              {otherPosts.map((p) => (
-                <li key={p.slug}>
-                  <LocLink to={`/blog/${p.slug}`} className="group block">
-                    <p className="font-mono text-[10.5px] tracking-[0.14em] text-[#d1a15e] uppercase">
                       {categoryLabels[p.category][lang]}
                     </p>
-                    <p className="mt-2 font-serif text-[20px] leading-snug text-white/90 group-hover:text-white group-hover:underline group-hover:decoration-[#d1a15e] group-hover:underline-offset-4">
+                    <h3 className="mt-3 text-[22px] leading-[1.2] text-ink group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">
                       {p.title[lang]}
+                    </h3>
+                    <p className="mt-3 flex-1 text-[14px] leading-[1.7] text-muted">{p.excerpt[lang]}</p>
+                    <p className="mt-5 font-mono text-[10.5px] tracking-[0.12em] text-muted/80">
+                      {formatPostMeta(p, lang)}
                     </p>
-                  </LocLink>
-                </li>
-              ))}
-            </ul>
-          </div>
+                  </div>
+                </LocLink>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
