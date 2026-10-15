@@ -77,7 +77,7 @@ refreshes also work without that setting. Then point `zenaelevators.ge` at the a
 ## Before launch checklist
 
 - [ ] Real social profile links (`site.social`)
-- [ ] Direct link to the official SJEC catalogue (`site.sjecCatalogueUrl`)
+- [x] "Open SJEC Catalogue" buttons and QR codes all open the catalogue PDF (`site.catalogue`)
 - [ ] Confirm the SJEC country count (`site.sjecCountries`)
 - [ ] Native-speaker review of the Georgian copy and the privacy policy (legal review)
 - [ ] Real photography

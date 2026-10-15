@@ -21,8 +21,8 @@ const copy = {
     metaDesc:
       "სახელმძღვანელოები, მომსახურების სიგნალები და გულწრფელი ფასთაგანი დეველოპერების, მფლობელებისა და არქიტექტორებისთვის, რომლებიც საქართველოში ლიფტებს გეგმავენ.",
     eyebrow: "ZENA-ს ჟურნალი",
-    title: "პირდაპირი პასუხები დეველოპერებისთვის, მფლობელებისა და არქიტექტორებისთვის.",
-    text: "სახელმძღვანელოები, მომსახურების სიგნალები და გულწრფელი ფასთაგანი ყველასთვის, ვინც საქართველოში ლიფტებს გეგმავს, ყიდულობს ან ამუშავებს.",
+    title: "ბლოგი: პირდაპირი პასუხები დეველოპერების, მფლობელებისა და არქიტექტორებისთვის.",
+    text: "",
   },
 } satisfies L<Record<string, unknown>>
 
@@ -44,7 +44,7 @@ export default function Blog() {
         <Container>
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h1 className="mt-4 max-w-3xl text-[36px] leading-[1.1] text-ink sm:text-[52px]">{t.title}</h1>
-          <p className="mt-5 max-w-xl text-[17px] leading-[1.8] text-muted">{t.text}</p>
+          {t.text && <p className="mt-5 max-w-xl text-[17px] leading-[1.8] text-muted">{t.text}</p>}
 
           <div className="mt-9 flex flex-wrap gap-2" role="group" aria-label="Filter">
             {(["all", ...cats] as Filter[]).map((c) => (

@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom"
 import { QRCodeSVG } from "qrcode.react"
 import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
+import BackButton from "../components/ui/BackButton"
 import Button from "../components/ui/Button"
-import Media from "../components/ui/Media"
-import ModelCard from "../components/ui/ModelCard"
 import CategoryCard from "../components/ui/CategoryCard"
 import { CheckIcon } from "../components/ui/Icons"
 import NotFound from "./NotFound"
@@ -17,12 +16,13 @@ import { categories, getCategory } from "../data/products"
 const copy = {
   en: {
     crumb: "Products",
+    back: "Back to products",
     highlights: "Key features",
     applications: "Typical applications",
     facts: "At a glance",
-    models: "Specified models",
-    catalogue: "See the full technical details in SJEC's official catalogue.",
-    cataloguePdf: "Download the SJEC V300 / CUBE brochure with the full technical details.",
+    catalogueEyebrow: "SJEC CATALOGUE",
+    openPage: "Open this part of the catalogue",
+    fullCatalogue: "Download the full catalogue",
     scan: "Scan to open",
     more: "Other solutions",
     ctaTitle: "Interested in this solution?",
@@ -30,12 +30,13 @@ const copy = {
   },
   ka: {
     crumb: "პროდუქტები",
+    back: "პროდუქტებზე დაბრუნება",
     highlights: "მთავარი მახასიათებლები",
     applications: "გამოყენების სფერო",
     facts: "მოკლედ",
-    models: "კონკრეტული მოდელები",
-    catalogue: "სრული ტექნიკური დეტალები იხილეთ SJEC-ის ოფიციალურ კატალოგში.",
-    cataloguePdf: "ჩამოტვირთეთ SJEC V300 / CUBE ბროშურა სრული ტექნიკური დეტალებით.",
+    catalogueEyebrow: "SJEC-ის კატალოგი",
+    openPage: "კატალოგის ამ ნაწილის გახსნა",
+    fullCatalogue: "სრული კატალოგის ჩამოტვირთვა",
     scan: "დაასკანირეთ გასახსნელად",
     more: "სხვა გადაწყვეტილებები",
     ctaTitle: "გაინტერესებთ ეს გადაწყვეტილება?",
@@ -56,11 +57,11 @@ export default function ProductDetail() {
     noindex: !cat,
   })
 
-  if (!cat) return <NotFound />
+  if (!cat || cat.linked === false) return <NotFound />
 
-  const isPdf = cat.catalogue === "pdf"
   // Absolute address so the QR code works from any phone, on whatever domain the site is served from.
-  const qrValue = isPdf ? new URL(site.catalogue.path, window.location.origin).href : site.sjecCatalogueUrl
+  const qrValue = cat.catalogue ? new URL(cat.catalogue.file, window.location.origin).href : ""
+
 
   const others = categories.filter((x) => x.group === cat.group && x.slug !== cat.slug).slice(0, 3)
 
@@ -69,6 +70,7 @@ export default function ProductDetail() {
       <section className="bg-alt py-14 lg:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
           <div>
+            <BackButton to="/products">{t.back}</BackButton>
             <p className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">
               <LocLink to="/products" className="hover:text-ink hover:underline">
                 {t.crumb}
@@ -79,18 +81,33 @@ export default function ProductDetail() {
             <p className="mt-5 max-w-xl text-[17px] leading-[1.8] text-muted">{cat.summary[lang]}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button to="/contact">{c.cta.requestQuote}</Button>
-              {isPdf ? (
-                <Button href={site.catalogue.path} download={site.catalogue.fileName} variant="secondary">
-                  {c.cta.downloadCatalogue} ↓
-                </Button>
-              ) : (
-                <Button href={site.sjecCatalogueUrl} external variant="secondary">
-                  {c.cta.openCatalogue} ↗
-                </Button>
-              )}
             </div>
           </div>
-          <Media src={cat.image} label={cat.media[lang]} className="aspect-[4/3] w-full" />
+          {cat.catalogue && (
+            <aside className="border border-line border-t-2 border-t-gold bg-card p-7 sm:p-9">
+              <p className="font-mono text-[10.5px] tracking-[0.16em] text-accent-text uppercase">{t.catalogueEyebrow}</p>
+              <h2 className="mt-3 text-[26px] leading-tight text-ink">{cat.catalogue.title[lang]}</h2>
+              <p className="mt-2 font-mono text-[11px] tracking-[0.12em] text-muted">{cat.catalogue.pages[lang]}</p>
+              <div className="mt-7 flex items-center gap-6">
+                <div className="shrink-0 bg-white p-2.5 ring-1 ring-black/10">
+                  <QRCodeSVG value={qrValue} size={96} level="M" bgColor="#ffffff" fgColor="#1c1713" />
+                </div>
+                <p className="font-mono text-[10px] tracking-[0.14em] text-muted uppercase">{t.scan}</p>
+              </div>
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Button href={cat.catalogue.file} external>
+                  {t.openPage} ↗
+                </Button>
+                <a
+                  href={site.catalogue.path}
+                  download={site.catalogue.fileName}
+                  className="text-[13px] font-medium text-ink underline decoration-gold underline-offset-[6px]"
+                >
+                  {t.fullCatalogue} ↓
+                </a>
+              </div>
+            </aside>
+          )}
         </Container>
       </section>
 
@@ -137,36 +154,11 @@ export default function ProductDetail() {
                 </dl>
               </div>
             )}
-
-            <div className="flex items-center gap-5 border border-line bg-card p-6">
-              <div className="shrink-0 bg-white p-2.5 ring-1 ring-black/10">
-                <QRCodeSVG value={qrValue} size={84} level="M" bgColor="#ffffff" fgColor="#1c1713" />
-              </div>
-              <div>
-                <p className="text-[13.5px] leading-relaxed text-muted">{isPdf ? t.cataloguePdf : t.catalogue}</p>
-                <p className="mt-2 font-mono text-[10px] tracking-[0.14em] text-accent-text uppercase">
-                  {isPdf ? c.cta.scanToDownload : t.scan}
-                </p>
-              </div>
-            </div>
           </aside>
         </Container>
       </section>
 
-      {cat.models && (
-        <section className="bg-alt py-16 lg:py-20">
-          <Container>
-            <h2 className="text-[28px] text-ink">{t.models}</h2>
-            <div className="mt-8 border border-line bg-line">
-              {cat.models.map((m) => (
-                <ModelCard key={m.name} model={m} />
-              ))}
-            </div>
-          </Container>
-        </section>
-      )}
-
-      <section className={`${cat.models ? "bg-surface" : "bg-alt"} py-16 lg:py-20`}>
+      <section className="bg-alt py-16 lg:py-20">
         <Container>
           <Eyebrow>{t.more}</Eyebrow>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

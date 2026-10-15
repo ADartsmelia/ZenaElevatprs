@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
+import BackButton from "../components/ui/BackButton"
 import Button from "../components/ui/Button"
 import Media from "../components/ui/Media"
 import NotFound from "./NotFound"
@@ -13,6 +14,7 @@ import { categoryLabels, formatPostMeta, getPost, posts, type Block } from "../d
 const copy = {
   en: {
     crumb: "Blog",
+    back: "Back to blog",
     by: "ZENA Elevators Team",
     ctaEyebrow: "FREE CONSULTATION",
     ctaTitle: "Not sure which elevator fits your building?",
@@ -22,6 +24,7 @@ const copy = {
   },
   ka: {
     crumb: "ბლოგი",
+    back: "ბლოგზე დაბრუნება",
     by: "ZENA Elevators-ის გუნდი",
     ctaEyebrow: "უფასო კონსულტაცია",
     ctaTitle: "არ იცით, რომელი ლიფტი შეესაბამება თქვენს შენობას?",
@@ -79,6 +82,7 @@ export default function BlogPost() {
     <>
       <article className="bg-surface py-14 lg:py-20">
         <Container className="max-w-3xl">
+          <BackButton to="/blog">{t.back}</BackButton>
           <p className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">
             <LocLink to="/blog" className="hover:text-ink hover:underline">
               {t.crumb}

@@ -24,13 +24,14 @@ export const site = {
     instagram: "#",
   },
 
-  /** Replace with the direct link to the official SJEC catalogue / e-brochure. */
-  sjecCatalogueUrl: "https://www.sjec.com.cn",
-  /** The catalogue PDF visitors download (public/downloads/). Swap the file to update it. */
+  /**
+   * The full SJEC elevator catalogue (a compressed copy of "SJEC elevator Catalog 202411", public/downloads/).
+   * The per-category excerpts live next to it in public/downloads/catalogue/ and are set in data/products.ts.
+   */
   catalogue: {
-    path: "/downloads/SJEC-V300-Catalogue.pdf",
-    fileName: "SJEC-V300-Catalogue.pdf",
-    sizeLabel: "PDF · 47 MB",
+    path: "/downloads/catalogue/SJEC-Elevator-Catalogue-202411.pdf",
+    fileName: "SJEC-Elevator-Catalogue-202411.pdf",
+    sizeLabel: "PDF · 13 MB",
   },
   sjecCountries: "130+",
 

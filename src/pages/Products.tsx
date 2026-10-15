@@ -3,31 +3,27 @@ import Container from "../components/ui/Container"
 import Eyebrow from "../components/ui/Eyebrow"
 import SectionHead from "../components/ui/SectionHead"
 import Button from "../components/ui/Button"
-import ModelCard from "../components/ui/ModelCard"
 import CategoryCard from "../components/ui/CategoryCard"
 import { useLang, type L } from "../i18n"
 import { useCommon } from "../i18n/useCommon"
 import { usePageMeta } from "../lib/seo"
 import { site } from "../config/site"
-import { allModels, elevatorCategories, escalatorCategories } from "../data/products"
+import { elevatorCategories, escalatorCategories } from "../data/products"
 
 const copy = {
   en: {
     metaTitle: "Products — Elevators, Escalators & Moving Walks",
     metaDesc:
-      "Passenger, panoramic, hospital, freight, home and car elevators, dumbwaiters, escalators, moving walks and trolley conveyors — SJEC technology supplied and supported by ZENA in Georgia.",
+      "Passenger, panoramic, freight and home elevators, cabin designs, lighting and operating panels, escalators and moving walks — SJEC technology supplied and supported by ZENA in Georgia.",
     eyebrow: "PRODUCTS",
     title: "Vertical Transportation Solutions for Every Building Type",
     text: "Explore elevator, escalator and moving-walk solutions for residential, commercial, healthcare, industrial and public buildings.",
     elevators: "Elevators",
     escalators: "Escalators & Moving Walks",
-    modelsEyebrow: "SJEC ESCALATOR & CONVEYOR MODELS",
-    modelsTitle: "Specified models",
-    modelsText: "Technical data for the SJEC escalator and conveyor lines we supply.",
     catalogue: {
       eyebrow: "OFFICIAL SJEC CATALOGUE",
-      title: "Official SJEC Catalogue",
-      text: "Download SJEC's official catalogue as a PDF. Scan the code to get it on your phone.",
+      title: "SJEC Elevator Catalogue",
+      text: "Download the full SJEC elevator catalogue as a PDF. Scan the code to get it on your phone.",
     },
     cta: {
       title: "Not Sure Which Solution Fits Your Building?",
@@ -37,15 +33,12 @@ const copy = {
   ka: {
     metaTitle: "პროდუქტები - ლიფტები, ესკალატორები და მოძრავი ბილიკები",
     metaDesc:
-      "სამგზავრო, პანორამული, სამედიცინო, სატვირთო, საოჯახო და ავტომობილის ლიფტები, ესკალატორები, მოძრავი ბილიკები და ეტლების კონვეიერები - SJEC-ის ტექნოლოგია, რომელსაც ZENA საქართველოში აწვდის და ემსახურება.",
+      "სამგზავრო, პანორამული, სატვირთო და საოჯახო ლიფტები, კაბინის დიზაინები, განათება და ღილაკების პანელი, ესკალატორები და მოძრავი ბილიკები - SJEC-ის ტექნოლოგია საქართველოში ZENA-სგან.",
     eyebrow: "პროდუქტები",
     title: "ვერტიკალური ტრანსპორტირების გადაწყვეტილებები ნებისმიერი ტიპის შენობისთვის",
-    text: "გაეცანით ლიფტების, ესკალატორებისა და მოძრავი ბილიკების გადაწყვეტილებებს საცხოვრებელი, კომერციული, სამედიცინო, სამრეწველო და საზოგადოებრივი შენობებისთვის.",
+    text: "გაეცანით ლიფტების, ესკალატორებისა და მოძრავი ბილიკების პროდუქტებს - საცხოვრებელი, კომერციული, სამედიცინო, სამრეწველო და საზოგადოებრივი შენობებისთვის.",
     elevators: "ლიფტები",
     escalators: "ესკალატორები და მოძრავი ბილიკები",
-    modelsEyebrow: "SJEC-ის ესკალატორებისა და კონვეიერების მოდელები",
-    modelsTitle: "კონკრეტული მოდელები",
-    modelsText: "ტექნიკური მონაცემები SJEC-ის ესკალატორებისა და კონვეიერების ხაზებისთვის, რომლებსაც ვაწვდით.",
     catalogue: {
       eyebrow: "SJEC-ის ოფიციალური კატალოგი",
       title: "SJEC-ის ოფიციალური კატალოგი",
@@ -77,40 +70,7 @@ export default function Products() {
         </Container>
       </section>
 
-      <section id="elevators" className="bg-surface py-16 lg:py-20">
-        <Container>
-          <SectionHead title={t.elevators} />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {elevatorCategories.map((cat) => (
-              <CategoryCard key={cat.slug} cat={cat} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section id="escalators" className="bg-alt py-16 lg:py-20">
-        <Container>
-          <SectionHead title={t.escalators} />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {escalatorCategories.map((cat) => (
-              <CategoryCard key={cat.slug} cat={cat} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-surface py-16 lg:py-20">
-        <Container>
-          <SectionHead eyebrow={t.modelsEyebrow} title={t.modelsTitle} description={t.modelsText} />
-          <div className="mt-10 space-y-px border border-line bg-line">
-            {allModels.map((m, i) => (
-              <ModelCard key={m.name} model={m} flip={i % 2 === 1} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-alt py-16 lg:py-20">
+      <section className="bg-surface py-14 lg:py-16">
         <Container className="grid items-center gap-10 md:grid-cols-[1fr_auto] lg:gap-16">
           <div>
             <Eyebrow>{t.catalogue.eyebrow}</Eyebrow>
@@ -138,6 +98,28 @@ export default function Products() {
               {c.cta.scanToDownload}
             </figcaption>
           </figure>
+        </Container>
+      </section>
+
+      <section id="elevators" className="bg-alt py-16 lg:py-20">
+        <Container>
+          <SectionHead title={t.elevators} />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {elevatorCategories.map((cat) => (
+              <CategoryCard key={cat.slug} cat={cat} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section id="escalators" className="bg-surface py-16 lg:py-20">
+        <Container>
+          <SectionHead title={t.escalators} />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {escalatorCategories.map((cat) => (
+              <CategoryCard key={cat.slug} cat={cat} />
+            ))}
+          </div>
         </Container>
       </section>
 

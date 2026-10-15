@@ -25,7 +25,7 @@ const copy = {
       line2: "You're choosing a",
       accent: "partner.",
       text: "We offer elevators and escalators for residential, commercial and public buildings — from technical consultation, procurement and supply to installation, modernization and long-term service.",
-      benefits: ["International Technology", "Procurement", "Professional Installation", "Tailored Solutions", "Local Support"],
+      benefits: ["International Technology", "Procurement", "Professional Installation", "Tailored Solutions", "Local Support", "Modernization"],
       alt: "Architectural sketch of an atrium with an escalator and a glass elevator",
       card: "Countries with SJEC installations",
       media: "escalator · airport atrium · long-exposure motion",
@@ -116,8 +116,8 @@ const copy = {
       line1: "თქვენ ლიფტს არ ყიდულობთ.",
       line2: "თქვენ ირჩევთ",
       accent: "პარტნიორს.",
-      text: "გთავაზობთ ლიფტებისა და ესკალატორებს საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის - ტექნიკური კონსულტაციიდან, შესყიდვიდან და მიწოდებიდან მონტაჟის, მოდერნიზაციისა და გრძელვადიანი სერვისის ჩათვლით.",
-      benefits: ["საერთაშორისო ტექნოლოგია", "შესყიდვა", "პროფესიონალური მონტაჟი", "ინდივიდუალური გადაწყვეტილებები", "ადგილობრივი მხარდაჭერა"],
+      text: "გთავაზობთ ლიფტებისა და ესკალატორების სრულ სერვისს საცხოვრებელი, კომერციული და საზოგადოებრივი შენობებისთვის. უზრუნველვყოფთ პროცესის სრულ ციკლს: ტექნიკურ კონსულტაციას, შერჩევას, მიწოდებას, მონტაჟს, მოდერნიზაციასა და გრძელვადიან ტექნიკურ მომსახურებას",
+      benefits: ["საერთაშორისო ტექნოლოგია", "შესყიდვა", "პროფესიონალური მონტაჟი", "ინდივიდუალური გადაწყვეტილებები", "ადგილობრივი მხარდაჭერა", "მოდერნიზაცია"],
       alt: "არქიტექტურული ესკიზი: ატრიუმი ესკალატორითა და მინის ლიფტით",
       card: "ქვეყანა SJEC-ის სისტემებით",
       media: "ესკალატორი · აეროპორტის ატრიუმი",
@@ -210,7 +210,6 @@ export default function Home() {
   const homeCategories = [
     "passenger-elevators",
     "panoramic-elevators",
-    "hospital-elevators",
     "freight-elevators",
     "home-villa-elevators",
   ]
@@ -343,7 +342,7 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Button to="/products">{c.cta.browseProducts}</Button>
-              <Button href={site.sjecCatalogueUrl} external variant="secondary">
+              <Button href={site.catalogue.path} external variant="secondary">
                 {c.cta.openCatalogue} ↗
               </Button>
             </div>

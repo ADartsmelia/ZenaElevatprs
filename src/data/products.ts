@@ -5,20 +5,11 @@ export interface Fact {
   value: L<string>
 }
 
-export interface Spec {
-  label: L<string>
-  value: string
-}
-
-/** A specific SJEC model shown under an escalator / conveyor category. */
-export interface Model {
-  name: string
-  tag: L<string>
-  description: L<string>
-  specs: Spec[]
-  media: string
-  /** Optional photo; the placeholder is shown until this is set. */
-  image?: string
+/** The part of the SJEC catalogue (a PDF excerpt in public/downloads/catalogue) that belongs to a category. */
+export interface CatalogueExcerpt {
+  file: string
+  title: L<string>
+  pages: L<string>
 }
 
 export interface ProductCategory {
@@ -30,25 +21,16 @@ export interface ProductCategory {
   highlights: L<string[]>
   applications: L<string[]>
   facts?: Fact[]
-  models?: Model[]
   /** Caption for the image placeholder. */
   media: L<string>
   image?: string
   /** Where the technical content came from, shown on the detail page. */
   source?: L<string>
-  /** "pdf": this product's catalogue is the downloadable PDF (site.catalogue) instead of the SJEC website. */
-  catalogue?: "pdf"
+  /** Catalogue excerpt shown on the detail page. */
+  catalogue?: CatalogueExcerpt
+  /** false: the card is only a cover, there is no detail page behind it. */
+  linked?: boolean
 }
-
-const spec = {
-  inclination: { en: "Inclination", ka: "დახრის კუთხე" },
-  stepWidth: { en: "Step width", ka: "საფეხურის სიგანე" },
-  palletWidth: { en: "Pallet width", ka: "პალეტის სიგანე" },
-  speed: { en: "Speed", ka: "სიჩქარე" },
-  rise: { en: "Rise", ka: "სიმაღლე" },
-  riseLength: { en: "Rise / length", ka: "სიმაღლე / სიგრძე" },
-  installation: { en: "Installation", ka: "მონტაჟი" },
-} satisfies Record<string, L<string>>
 
 export const categories: ProductCategory[] = [
   /* ---------------------------------------------------------------- Elevators */
@@ -90,7 +72,14 @@ export const categories: ProductCategory[] = [
       },
     ],
     media: { en: "passenger elevator cabin", ka: "სამგზავრო ლიფტის კაბინა" },
+    image: "/images/products/passenger-elevators.webp",
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Car-Style-Standard-Car.pdf",
+      title: { en: "Car Style - Standard car", ka: "კაბინის სტილი - სტანდარტული კაბინა" },
+      pages: { en: "Catalogue page 15", ka: "კატალოგის გვ. 15" },
+    },
   },
+
   {
     slug: "panoramic-elevators",
     group: "elevators",
@@ -120,37 +109,14 @@ export const categories: ProductCategory[] = [
       ka: ["სავაჭრო ცენტრები", "სასტუმროები", "ატრიუმები და ლობები", "საოფისე ფასადები"],
     },
     media: { en: "panoramic elevator in atrium", ka: "პანორამული ლიფტი ატრიუმში" },
+    image: "/images/products/panoramic-elevators.webp",
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Observation-Lift.pdf",
+      title: { en: "Observation lifts", ka: "პანორამული ლიფტები" },
+      pages: { en: "Catalogue page 15", ka: "კატალოგის გვ. 15" },
+    },
   },
-  {
-    slug: "hospital-elevators",
-    group: "elevators",
-    name: { en: "Hospital Elevators", ka: "სამედიცინო ლიფტები" },
-    short: {
-      en: "Spacious, smooth-riding bed and stretcher elevators designed for healthcare buildings.",
-      ka: "ფართო და რბილად მოძრავი საწოლისა და სანიტრული ლიფტები სამედიცინო დაწესებულებებისთვის.",
-    },
-    summary: {
-      en: "Healthcare buildings need reliable, comfortable and safe vertical transport with cabins that fit beds and stretchers. We help clinics and hospitals select a suitable solution and plan installation with minimum disruption.",
-      ka: "სამედიცინო შენობებს სჭირდებათ საიმედო, კომფორტული და უსაფრთხო ვერტიკალური ტრანსპორტი, კაბინებით, რომლებშიც საწოლები და საკაცეები თავისუფლად ეტევა. კლინიკებსა და საავადმყოფოებს ვეხმარებით სწორი გადაწყვეტის შერჩევასა და მონტაჟის დაგეგმვაში მინიმალური შეფერხებით.",
-    },
-    highlights: {
-      en: [
-        "Cabins sized for beds and stretchers",
-        "Smooth ride and accurate levelling",
-        "Safety and accessibility standards taken into account (EN 81-70)",
-      ],
-      ka: [
-        "საწოლებისა და საკაცეებისთვის გათვლილი კაბინა",
-        "რბილი სვლა და ზუსტი დონეზე გაჩერება",
-        "უსაფრთხოებისა და ხელმისაწვდომობის სტანდარტების გათვალისწინება (EN 81-70)",
-      ],
-    },
-    applications: {
-      en: ["Hospitals", "Clinics", "Care homes", "Medical centres"],
-      ka: ["საავადმყოფოები", "კლინიკები", "მოვლის ცენტრები", "სამედიცინო ცენტრები"],
-    },
-    media: { en: "hospital bed elevator", ka: "სამედიცინო ლიფტი" },
-  },
+
   {
     slug: "freight-elevators",
     group: "elevators",
@@ -183,7 +149,14 @@ export const categories: ProductCategory[] = [
       { label: { en: "Load capacity", ka: "ტვირთამწეობა" }, value: { en: "500–5000 kg", ka: "500–5000 კგ" } },
     ],
     media: { en: "freight elevator", ka: "სატვირთო ლიფტი" },
+    image: "/images/products/freight-elevators.webp",
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Car-Style-Optional-Car.pdf",
+      title: { en: "Car Style - Optional car", ka: "კაბინის სტილი - დამატებითი კაბინა" },
+      pages: { en: "Catalogue page 15", ka: "კატალოგის გვ. 15" },
+    },
   },
+
   {
     slug: "home-villa-elevators",
     group: "elevators",
@@ -225,67 +198,98 @@ export const categories: ProductCategory[] = [
       { label: { en: "Controller noise", ka: "კონტროლერის ხმაური" }, value: { en: "below 40 dB (XCR-2000)", ka: "40 დბ-ზე დაბლა (XCR-2000)" } },
     ],
     media: { en: "V300 CUBE home lift · concealed controller", ka: "V300 CUBE საოჯახო ლიფტი · დამალული კონტროლერი" },
-    catalogue: "pdf",
+    image: "/images/products/home-villa-elevators.webp",
     source: {
       en: "Technical details from the SJEC V300 / CUBE brochure. Villa lift limited to single-family use.",
       ka: "ტექნიკური დეტალები SJEC-ის V300 / CUBE ბროშურიდან. საოჯახო ლიფტი განკუთვნილია მხოლოდ ერთი ოჯახის გამოსაყენებლად.",
     },
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Car-Style-Page.pdf",
+      title: { en: "Car Style", ka: "კაბინის სტილი" },
+      pages: { en: "Catalogue page 15", ka: "კატალოგის გვ. 15" },
+    },
   },
   {
-    slug: "car-elevators",
+    slug: "cabin-designs",
     group: "elevators",
-    name: { en: "Car Elevators", ka: "ავტომობილის ლიფტები" },
+    name: { en: "Cabin Designs", ka: "კაბინის დიზაინები" },
     short: {
-      en: "Vehicle lifts for private garages, parking levels and showrooms.",
-      ka: "ავტომობილის ლიფტები კერძო გარაჟებისთვის, პარკინგის დონეებისა და შოურუმებისთვის.",
+      en: "Ready-made cabin interiors in steel, mirror, gold and wood finishes, from classic to premium.",
+      ka: "მზა კაბინის ინტერიერები ფოლადის, სარკისებური, ოქროსფერი და ხის მოპირკეთებით - კლასიკურიდან პრემიუმ დონემდე.",
     },
     summary: {
-      en: "Car elevators depend heavily on vehicle size and building layout, so each one is engineered for its project. Share the vehicles, levels and available space and we will propose a suitable solution.",
-      ka: "ავტომობილის ლიფტი დიდად არის დამოკიდებული ავტომობილის ზომასა და შენობის განლაგებაზე, ამიტომ თითოეული პროექტისთვის ინდივიდუალურად ინჟინრდება. გვითხარით ავტომობილების ტიპი, დონეები და არსებული სივრცე და შემოგთავაზებთ შესაფერის გადაწყვეტას.",
+      en: "The cabin is the part of the elevator people actually experience. SJEC offers reference cabin designs in the JR, JC, JH and VC series, each with its own ceiling, wall finish, handrail and floor options. We help you choose the one that fits the building.",
+      ka: "კაბინა ლიფტის ის ნაწილია, რომელსაც მგზავრი რეალურად აფასებს. SJEC გთავაზობთ JR, JC, JH და VC სერიების კაბინის დიზაინებს, თითოეული საკუთარი ჭერის, კედლების მოპირკეთების, სახელურისა და იატაკის ვარიანტებით. ჩვენ დაგეხმარებით შენობისთვის შესაფერისის შერჩევაში.",
     },
     highlights: {
       en: [
-        "Engineered per project: vehicle dimensions, platform size and load",
-        "For residential garages and commercial parking levels",
+        "Reference designs in the JR, JC, JH and VC series",
+        "Every design lists its ceiling, car wall, front return, handrail, car door and floor",
+        "Finishes include hairline and mirror stainless steel, gold-toned steel, etched patterns and wood-effect surfaces",
+        "Optional marble-effect floors are listed for many designs",
       ],
       ka: [
-        "ინდივიდუალური გათვლა: ავტომობილის ზომები, პლატფორმა და დატვირთვა",
-        "საცხოვრებელი გარაჟებისა და კომერციული პარკინგებისთვის",
+        "მზა დიზაინები JR, JC, JH და VC სერიებში",
+        "თითოეულ დიზაინში მითითებულია ჭერი, კაბინის კედლები, წინა პანელი, სახელური, კაბინის კარი და იატაკი",
+        "მოპირკეთება: ნაკაწრებიანი და სარკისებრი უჟანგავი ფოლადი, ოქროსფერი ფოლადი, გრავირებული ნახატები და ხის ფაქტურა",
+        "ბევრ დიზაინს დამატებით შეიძლება მარმარილოს იატაკი ჰქონდეს",
       ],
     },
     applications: {
-      en: ["Private garages", "Underground parking", "Car showrooms"],
-      ka: ["კერძო გარაჟები", "მიწისქვეშა პარკინგები", "ავტოსალონები"],
+      en: ["Residential buildings", "Offices", "Hotels", "Shopping centres"],
+      ka: ["საცხოვრებელი შენობები", "ოფისები", "სასტუმროები", "სავაჭრო ცენტრები"],
     },
-    media: { en: "car elevator", ka: "ავტომობილის ლიფტი" },
+    media: { en: "cabin interior design sketch", ka: "კაბინის ინტერიერის ესკიზი" },
+    image: "/images/products/cabin-designs.webp",
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Cabin-Designs.pdf",
+      title: { en: "Cabin designs", ka: "კაბინის დიზაინები" },
+      pages: { en: "Catalogue pages 16-19", ka: "კატალოგის გვ. 16-19" },
+    },
   },
   {
-    slug: "dumbwaiters",
+    slug: "lighting-and-panels",
     group: "elevators",
-    name: { en: "Dumbwaiters", ka: "მცირე სატვირთო ლიფტები" },
+    name: { en: "Lighting & Operating Panels", ka: "განათება და ღილაკების პანელი" },
     short: {
-      en: "Compact service lifts for moving food, linen and light goods between floors.",
-      ka: "კომპაქტური სერვის-ლიფტები საკვების, თეთრეულისა და მსუბუქი ტვირთის სართულებს შორის გადასაადგილებლად.",
+      en: "Cabin ceilings with LED lighting, handrails, wall and floor materials, operating panels, displays and buttons.",
+      ka: "კაბინის ჭერი LED განათებით, სახელურები, კედლისა და იატაკის მასალები, ღილაკების პანელები, დისპლეები და ღილაკები.",
     },
     summary: {
-      en: "Dumbwaiters are small goods lifts that quietly save hours of carrying in restaurants, hotels, homes and offices.",
-      ka: "მცირე სატვირთო ლიფტი ჩუმად ზოგავს ტვირთის ტარებაზე დახარჯულ დროს რესტორნებში, სასტუმროებში, სახლებსა და ოფისებში.",
+      en: "Lighting and controls shape how a cabin feels and how easy it is to use. The SJEC catalogue covers ceiling designs, handrails, wall and floor materials, car operating panels (COP), landing fixtures (FOB), displays, buttons and hall lanterns.",
+      ka: "განათება და მართვის ელემენტები განსაზღვრავს, როგორ აღიქმება კაბინა და რამდენად მოსახერხებელია მისი გამოყენება. SJEC-ის კატალოგში წარმოდგენილია ჭერის დიზაინები, სახელურები, კედლისა და იატაკის მასალები, ღილაკების პანელები (COP), სართულის გამოსაძახებელი პანელები (FOB), დისპლეები, ღილაკები და სართულის სიგნალური მაჩვენებლები.",
     },
     highlights: {
-      en: ["Compact size for small shafts", "Moves food, linen, documents and light goods"],
-      ka: ["კომპაქტური ზომა პატარა შახტებისთვის", "გადააქვს საკვები, თეთრეული, დოკუმენტები და მსუბუქი ტვირთი"],
+      en: [
+        "Ceiling designs with LED lighting",
+        "Handrails, wall and door materials and floor finishes",
+        "Car operating panels with displays and buttons",
+        "Landing fixtures for every floor, hall lanterns and an auxiliary panel for disabled passengers",
+      ],
+      ka: [
+        "ჭერის დიზაინები LED განათებით",
+        "სახელურები, კედლისა და კარის მასალები და იატაკის მოპირკეთება",
+        "კაბინის ღილაკების პანელები დისპლეითა და ღილაკებით",
+        "სართულის გამოსაძახებელი პანელები, სიგნალური მაჩვენებლები და დამატებითი პანელი შეზღუდული შესაძლებლობის მქონე მგზავრებისთვის",
+      ],
     },
     applications: {
-      en: ["Restaurants and kitchens", "Hotels", "Private homes", "Offices and archives"],
-      ka: ["რესტორნები და სამზარეულოები", "სასტუმროები", "კერძო სახლები", "ოფისები და არქივები"],
+      en: ["Residential buildings", "Offices", "Hotels", "Public buildings"],
+      ka: ["საცხოვრებელი შენობები", "ოფისები", "სასტუმროები", "საზოგადოებრივი შენობები"],
     },
-    media: { en: "dumbwaiter", ka: "მცირე სატვირთო ლიფტი" },
+    media: { en: "cabin lighting and operating panel sketch", ka: "კაბინის განათებისა და ღილაკების პანელის ესკიზი" },
+    catalogue: {
+      file: "/downloads/catalogue/SJEC-Lighting-and-Panels.pdf",
+      title: { en: "Lighting & operating panels", ka: "განათება და ღილაკების პანელი" },
+      pages: { en: "Catalogue pages 20-26", ka: "კატალოგის გვ. 20-26" },
+    },
   },
-
   /* -------------------------------------------------------------- Escalators */
   {
     slug: "commercial-escalators",
     group: "escalators",
+    /** Cover card only: no detail page. */
+    linked: false,
     name: { en: "Commercial Escalators", ka: "კომერციული ესკალატორები" },
     short: {
       en: "Silent, comfortable escalators for malls, hotels and office blocks.",
@@ -304,66 +308,14 @@ export const categories: ProductCategory[] = [
       ka: ["სავაჭრო ცენტრები", "სასტუმროები", "საოფისე შენობები"],
     },
     media: { en: "FES escalator · shopping mall", ka: "FES ესკალატორი · სავაჭრო ცენტრი" },
-    models: [
-      {
-        name: "FES",
-        tag: { en: "Commercial", ka: "კომერციული" },
-        description: {
-          en: "Silence and comfort for continuous public traffic — malls, hotels and office blocks.",
-          ka: "სიჩუმე და კომფორტი უწყვეტი საზოგადოებრივი ნაკადისთვის - სავაჭრო ცენტრები, სასტუმროები და საოფისე შენობები.",
-        },
-        specs: [
-          { label: spec.inclination, value: "30° / 35°" },
-          { label: spec.stepWidth, value: "600 / 800 / 1000 mm" },
-          { label: spec.speed, value: "0.5 m/s" },
-          { label: spec.rise, value: "2–8.3 m" },
-        ],
-        media: "FES escalator · shopping mall",
-      },
-    ],
+    image: "/images/products/commercial-escalators.webp",
   },
-  {
-    slug: "heavy-duty-escalators",
-    group: "escalators",
-    name: { en: "Heavy-Duty Escalators", ka: "მძიმე რეჟიმის ესკალატორები" },
-    short: {
-      en: "Weatherproof, heavy-duty escalators for metro, railway and airport projects.",
-      ka: "ამინდგამძლე, მძიმე რეჟიმის ესკალატორები მეტროს, რკინიგზისა და აეროპორტის პროექტებისთვის.",
-    },
-    summary: {
-      en: "Public-transport escalators run for many hours a day in demanding conditions. The FEH and FEH20 series are built for subways, airports and overpasses, including outdoor installations. SJEC equipment operates in metro systems and international airports around the world.",
-      ka: "საზოგადოებრივი ტრანსპორტის ესკალატორები დღეში მრავალი საათი მუშაობს მძიმე პირობებში. FEH და FEH20 სერიები შექმნილია მეტროს, აეროპორტებისა და ესტაკადებისთვის, მათ შორის გარე მონტაჟისთვის. SJEC-ის აღჭურვილობა მსოფლიოს მეტროსა და საერთაშორისო აეროპორტებში მუშაობს.",
-    },
-    highlights: {
-      en: ["Weatherproof, heavy-duty construction", "Built to run continuously, including outdoors", "Rise of up to 50 m (FEH20)"],
-      ka: ["ამინდგამძლე, მძიმე რეჟიმის კონსტრუქცია", "განკუთვნილია უწყვეტი მუშაობისთვის, გარეთაც", "სიმაღლე 50 მ-მდე (FEH20)"],
-    },
-    applications: {
-      en: ["Metro and railway stations", "Airports", "Pedestrian overpasses"],
-      ka: ["მეტროსა და რკინიგზის სადგურები", "აეროპორტები", "ესტაკადები და გადასასვლელები"],
-    },
-    media: { en: "FEH20 escalator · outdoor metro overpass", ka: "FEH20 ესკალატორი · მეტროს გარე ესტაკადა" },
-    models: [
-      {
-        name: "FEH / FEH20",
-        tag: { en: "Public transport · heavy duty", ka: "საზოგადოებრივი ტრანსპორტი · მძიმე რეჟიმი" },
-        description: {
-          en: "Weatherproof, heavy-duty construction for airports, subways and overpasses — built to run continuously outdoors.",
-          ka: "ამინდგამძლე, მძიმე რეჟიმის კონსტრუქცია აეროპორტებისთვის, მეტროსა და ესტაკადებისთვის - განკუთვნილია გარეთ უწყვეტი მუშაობისთვის.",
-        },
-        specs: [
-          { label: spec.inclination, value: "FEH 23.2–35° · FEH20 30°" },
-          { label: spec.stepWidth, value: "600 / 800 / 1000 mm" },
-          { label: spec.speed, value: "0.5 / 0.65 m/s" },
-          { label: spec.rise, value: "FEH 2–15 m · FEH20 3–50 m" },
-        ],
-        media: "FEH20 escalator · outdoor metro overpass",
-      },
-    ],
-  },
+
   {
     slug: "moving-walks",
     group: "escalators",
+    /** Cover card only: no detail page. */
+    linked: false,
     name: { en: "Moving Walks", ka: "მოძრავი ბილიკები" },
     short: {
       en: "Passenger conveyors for airports, hypermarkets and transit halls.",
@@ -382,62 +334,7 @@ export const categories: ProductCategory[] = [
       ka: ["აეროპორტები", "ჰიპერმარკეტები", "სატრანზიტო დარბაზები"],
     },
     media: { en: "passenger conveyor · airport moving walk", ka: "სამგზავრო კონვეიერი · აეროპორტის მოძრავი ბილიკი" },
-    models: [
-      {
-        name: "Passenger Conveyor",
-        tag: { en: "Moving walk", ka: "მოძრავი ბილიკი" },
-        description: {
-          en: "Reliable, high-efficiency, easy for maintenance — suited to hypermarkets and airports. Available in inclined (FET/FEF) and flat (FEW) configurations.",
-          ka: "საიმედო, მაღალეფექტური, მარტივად სამსახურებელი - შესაფერისია ჰიპერმარკეტებისა და აეროპორტებისთვის. ხელმისაწვდომია დახრილი (FET/FEF) და ჰორიზონტალური (FEW) კონფიგურაციით.",
-        },
-        specs: [
-          { label: spec.inclination, value: "FET/FEF 10/11/12° · FEW 0–6°" },
-          { label: spec.palletWidth, value: "800–1400 mm" },
-          { label: spec.speed, value: "0.5 m/s" },
-          { label: spec.riseLength, value: "H 2–8.3 m · L 20–120 m" },
-        ],
-        media: "passenger conveyor · airport moving walk",
-      },
-    ],
-  },
-  {
-    slug: "trolley-conveyors",
-    group: "escalators",
-    name: { en: "Trolley Conveyors", ka: "ეტლების კონვეიერები" },
-    short: {
-      en: "Cart and trolley conveyors that separate people and trolleys for safer shopping floors.",
-      ka: "ეტლებისა და ურიკების კონვეიერები, რომლებიც ადამიანებსა და ეტლებს ერთმანეთისგან ყოფს.",
-    },
-    summary: {
-      en: "A shopping-cart transport system with high efficiency and a small installation footprint. Usually installed beside escalators, it separates people and trolleys into two paths for better safety.",
-      ka: "სავაჭრო ეტლების გადამზიდი სისტემა მაღალი ეფექტურობითა და მცირე სამონტაჟო სივრცით. ჩვეულებრივ ესკალატორის გვერდით მონტაჟდება და ადამიანებსა და ეტლებს ორ ცალკე გზაზე ანაწილებს უკეთესი უსაფრთხოებისთვის.",
-    },
-    highlights: {
-      en: ["High efficiency, small installation space", "Indoor installation", "Installed beside escalators"],
-      ka: ["მაღალი ეფექტურობა, მცირე სამონტაჟო სივრცე", "შიდა მონტაჟი", "მონტაჟდება ესკალატორის გვერდით"],
-    },
-    applications: {
-      en: ["Shopping malls", "Hypermarkets", "Airport cart areas"],
-      ka: ["სავაჭრო ცენტრები", "ჰიპერმარკეტები", "აეროპორტის ეტლების ზონები"],
-    },
-    media: { en: "FEB trolley conveyor · beside escalator", ka: "FEB ეტლების კონვეიერი · ესკალატორის გვერდით" },
-    models: [
-      {
-        name: "FEB Trolley Conveyor",
-        tag: { en: "Trolley conveyor", ka: "ეტლების კონვეიერი" },
-        description: {
-          en: "A shopping cart/trolley transport system with high efficiency and small installation space — usually installed beside escalators, separating people and trolleys into two paths for better safety.",
-          ka: "სავაჭრო ეტლების გადამზიდი სისტემა მაღალი ეფექტურობითა და მცირე სამონტაჟო სივრცით - ჩვეულებრივ ესკალატორის გვერდით მონტაჟდება, ადამიანებსა და ეტლებს ორ ცალკე გზაზე ანაწილებს.",
-        },
-        specs: [
-          { label: spec.inclination, value: "30° / 35°" },
-          { label: spec.speed, value: "0.5 m/s" },
-          { label: spec.installation, value: "Indoor" },
-          { label: spec.rise, value: "2–6 m" },
-        ],
-        media: "FEB trolley conveyor · beside escalator",
-      },
-    ],
+    image: "/images/products/moving-walks.webp",
   },
 ]
 
@@ -446,5 +343,3 @@ export const getCategory = (slug: string) => categories.find((c) => c.slug === s
 export const elevatorCategories = categories.filter((c) => c.group === "elevators")
 export const escalatorCategories = categories.filter((c) => c.group === "escalators")
 
-/** All individually specified SJEC models (shown lower on the Products page). */
-export const allModels = escalatorCategories.flatMap((c) => c.models ?? [])

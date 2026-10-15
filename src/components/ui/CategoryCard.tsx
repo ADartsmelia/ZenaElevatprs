@@ -6,8 +6,8 @@ import type { ProductCategory } from "../../data/products"
 export default function CategoryCard({ cat }: { cat: ProductCategory }) {
   const lang = useLang()
   const c = useCommon()
-  return (
-    <LocLink to={`/products/${cat.slug}`} className="group flex flex-col border border-line bg-card">
+  const body = (
+    <>
       <Media
         src={cat.image}
         label={cat.media[lang]}
@@ -16,10 +16,22 @@ export default function CategoryCard({ cat }: { cat: ProductCategory }) {
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-[24px] leading-tight text-ink">{cat.name[lang]}</h3>
         <p className="mt-3 flex-1 text-[14px] leading-[1.7] text-muted">{cat.short[lang]}</p>
-        <span className="mt-5 text-[13px] font-medium text-ink underline decoration-gold underline-offset-[6px]">
-          {c.cta.viewSolutions} →
-        </span>
+        {cat.linked !== false && (
+          <span className="mt-5 text-[13px] font-medium text-ink underline decoration-gold underline-offset-[6px]">
+            {c.cta.viewSolutions} →
+          </span>
+        )}
       </div>
+    </>
+  )
+
+  // Cover-only cards have no page behind them.
+  if (cat.linked === false) {
+    return <div className="flex flex-col border border-line bg-card">{body}</div>
+  }
+  return (
+    <LocLink to={`/products/${cat.slug}`} className="group flex flex-col border border-line bg-card">
+      {body}
     </LocLink>
   )
 }
