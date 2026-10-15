@@ -278,6 +278,7 @@ export const categories: ProductCategory[] = [
       ka: ["საცხოვრებელი შენობები", "ოფისები", "სასტუმროები", "საზოგადოებრივი შენობები"],
     },
     media: { en: "cabin lighting and operating panel sketch", ka: "კაბინის განათებისა და ღილაკების პანელის ესკიზი" },
+    image: "/images/products/lighting-and-panels.webp",
     catalogue: {
       file: "/downloads/catalogue/SJEC-Lighting-and-Panels.pdf",
       title: { en: "Lighting & operating panels", ka: "განათება და ღილაკების პანელი" },
